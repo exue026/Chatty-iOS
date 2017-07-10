@@ -7,11 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A166DF421F11D5A90014C0A5 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A166DF401F11D5A90014C0A5 /* Localizable.strings */; };
+		A166DF461F11E47B0014C0A5 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = A166DF451F11E47B0014C0A5 /* String.swift */; };
+		A166DF481F11E9440014C0A5 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A166DF471F11E9440014C0A5 /* UIColor.swift */; };
+		A166DF4A1F129A1E0014C0A5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A166DF491F129A1E0014C0A5 /* Constants.swift */; };
+		A166DF4D1F129FC10014C0A5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A166DF4C1F129FC10014C0A5 /* LaunchScreen.storyboard */; };
+		A18623BD1F131F7E005EABFC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A18623BC1F131F7E005EABFC /* GoogleService-Info.plist */; };
 		A1BD7B221F117A5600E217FC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BD7B211F117A5600E217FC /* AppDelegate.swift */; };
-		A1BD7B241F117A5600E217FC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BD7B231F117A5600E217FC /* ViewController.swift */; };
+		A1BD7B241F117A5600E217FC /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BD7B231F117A5600E217FC /* LoginController.swift */; };
 		A1BD7B2A1F117A5600E217FC /* chatty.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A1BD7B281F117A5600E217FC /* chatty.xcdatamodeld */; };
 		A1BD7B2C1F117A5600E217FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1BD7B2B1F117A5600E217FC /* Assets.xcassets */; };
-		A1BD7B2F1F117A5600E217FC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1BD7B2D1F117A5600E217FC /* LaunchScreen.storyboard */; };
 		A1BD7B3A1F117A5700E217FC /* chattyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BD7B391F117A5700E217FC /* chattyTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -26,12 +31,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A166DF411F11D5A90014C0A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = chatty/Base.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
+		A166DF451F11E47B0014C0A5 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		A166DF471F11E9440014C0A5 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		A166DF491F129A1E0014C0A5 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		A166DF4C1F129FC10014C0A5 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		A18623BC1F131F7E005EABFC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A1BD7B1E1F117A5600E217FC /* chatty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = chatty.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1BD7B211F117A5600E217FC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A1BD7B231F117A5600E217FC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		A1BD7B231F117A5600E217FC /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		A1BD7B291F117A5600E217FC /* chatty.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = chatty.xcdatamodel; sourceTree = "<group>"; };
 		A1BD7B2B1F117A5600E217FC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		A1BD7B2E1F117A5600E217FC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A1BD7B301F117A5600E217FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A1BD7B351F117A5700E217FC /* chattyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = chattyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1BD7B391F117A5700E217FC /* chattyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chattyTests.swift; sourceTree = "<group>"; };
@@ -56,6 +66,52 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A166DF3D1F11CD110014C0A5 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				A1BD7B231F117A5600E217FC /* LoginController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		A166DF3E1F11D3680014C0A5 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A166DF401F11D5A90014C0A5 /* Localizable.strings */,
+				A166DF491F129A1E0014C0A5 /* Constants.swift */,
+				A1BD7B2B1F117A5600E217FC /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		A166DF441F11D7D80014C0A5 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				A166DF451F11E47B0014C0A5 /* String.swift */,
+				A166DF471F11E9440014C0A5 /* UIColor.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		A166DF4B1F129B410014C0A5 /* Store */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Store;
+			sourceTree = "<group>";
+		};
+		A18623BE1F131FA0005EABFC /* Admin */ = {
+			isa = PBXGroup;
+			children = (
+				A1BD7B211F117A5600E217FC /* AppDelegate.swift */,
+				A1BD7B301F117A5600E217FC /* Info.plist */,
+				A166DF4C1F129FC10014C0A5 /* LaunchScreen.storyboard */,
+				A1BD7B281F117A5600E217FC /* chatty.xcdatamodeld */,
+				A18623BC1F131F7E005EABFC /* GoogleService-Info.plist */,
+			);
+			path = Admin;
+			sourceTree = "<group>";
+		};
 		A1BD7B151F117A5600E217FC = {
 			isa = PBXGroup;
 			children = (
@@ -77,12 +133,11 @@
 		A1BD7B201F117A5600E217FC /* chatty */ = {
 			isa = PBXGroup;
 			children = (
-				A1BD7B211F117A5600E217FC /* AppDelegate.swift */,
-				A1BD7B231F117A5600E217FC /* ViewController.swift */,
-				A1BD7B2B1F117A5600E217FC /* Assets.xcassets */,
-				A1BD7B2D1F117A5600E217FC /* LaunchScreen.storyboard */,
-				A1BD7B301F117A5600E217FC /* Info.plist */,
-				A1BD7B281F117A5600E217FC /* chatty.xcdatamodeld */,
+				A18623BE1F131FA0005EABFC /* Admin */,
+				A166DF3D1F11CD110014C0A5 /* Controllers */,
+				A166DF4B1F129B410014C0A5 /* Store */,
+				A166DF441F11D7D80014C0A5 /* Extensions */,
+				A166DF3E1F11D3680014C0A5 /* Resources */,
 			);
 			path = chatty;
 			sourceTree = "<group>";
@@ -158,7 +213,6 @@
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
 			);
 			mainGroup = A1BD7B151F117A5600E217FC;
@@ -177,7 +231,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1BD7B2F1F117A5600E217FC /* LaunchScreen.storyboard in Resources */,
+				A166DF4D1F129FC10014C0A5 /* LaunchScreen.storyboard in Resources */,
+				A18623BD1F131F7E005EABFC /* GoogleService-Info.plist in Resources */,
+				A166DF421F11D5A90014C0A5 /* Localizable.strings in Resources */,
 				A1BD7B2C1F117A5600E217FC /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -196,9 +252,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1BD7B241F117A5600E217FC /* ViewController.swift in Sources */,
+				A1BD7B241F117A5600E217FC /* LoginController.swift in Sources */,
 				A1BD7B221F117A5600E217FC /* AppDelegate.swift in Sources */,
+				A166DF461F11E47B0014C0A5 /* String.swift in Sources */,
 				A1BD7B2A1F117A5600E217FC /* chatty.xcdatamodeld in Sources */,
+				A166DF481F11E9440014C0A5 /* UIColor.swift in Sources */,
+				A166DF4A1F129A1E0014C0A5 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,12 +280,12 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		A1BD7B2D1F117A5600E217FC /* LaunchScreen.storyboard */ = {
+		A166DF401F11D5A90014C0A5 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				A1BD7B2E1F117A5600E217FC /* Base */,
+				A166DF411F11D5A90014C0A5 /* Base */,
 			);
-			name = LaunchScreen.storyboard;
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -236,6 +295,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -291,6 +351,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -341,9 +402,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 93465BD3EZ;
 				INFOPLIST_FILE = chatty/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ethanxue.chatty;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ethanxue.chatty;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -356,9 +417,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 93465BD3EZ;
 				INFOPLIST_FILE = chatty/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ethanxue.chatty;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ethanxue.chatty;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
