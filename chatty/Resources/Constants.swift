@@ -8,8 +8,12 @@
 
 import Foundation
 
-struct Network {
+struct NetworkRes {
     static let baseURL = ""
+}
+
+struct FirebaseRes {
+    static let databaseURL = "https://chatty-428c3.firebaseio.com/"
 }
 
 
