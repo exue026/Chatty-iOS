@@ -114,14 +114,13 @@ class LoginController: UIViewController, UITextFieldDelegate {
         return view
     }()
     
-    // MARK: viewDidLoad
+    // MARK: Initializers and deinitializers
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(className + " : " + "didLoad")
         view.backgroundColor = UIColor(theme: .purpleblue)
-        
-        navigationController?.navigationBar.isHidden = true
-        
+
         usernameTF.delegate = self
         emailTF.delegate = self
         passwordTF.delegate = self
@@ -135,6 +134,21 @@ class LoginController: UIViewController, UITextFieldDelegate {
         setupLoginRegisterSegmentedControl()
         setupInputsView()
         setupRegisterButton()
+        
+        FirebaseService.shared().checkPersistentUserSession { (isLoggedIn: Bool) in
+            if isLoggedIn {
+                self.segueToMainTabBarController(animated: false)
+            }
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    
+    deinit {
+        print(className + " : " + "deinitializing")
     }
     
     // MARK: UITextFieldDelegate
@@ -147,8 +161,11 @@ class LoginController: UIViewController, UITextFieldDelegate {
     // MARK: loginRegisterSegmentedControl
     
     @objc private func handleLoginRegisterChange() {
+        self.view.endEditing(true)
         let title = loginRegisterSegmentedControl.titleForSegment(at: loginRegisterSegmentedControl.selectedSegmentIndex)
         loginRegisterButton.setTitle(title, for: .normal)
+        clearInputs()
+        
         inputsViewHeightAnchor?.constant = loginRegisterSegmentedControl.selectedSegmentIndex == 0 ? 100 : 150
         
         let usernameTFMultiplier: CGFloat = loginRegisterSegmentedControl.selectedSegmentIndex == 0 ? 0 : 1/3
@@ -187,30 +204,19 @@ class LoginController: UIViewController, UITextFieldDelegate {
     private func handleLogin() {
         guard let email = emailTF.text, let password = passwordTF.text else { return }
         FirebaseService.shared().signInUser(email: email, password: password) { (error: Error?) in
+            self.clearInputs()
             if let error = error {
                 let alert = UIAlertController(title: "ERROR".localized(), message: error.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK".localized(), style: .default) { _ in
-                    self.usernameTF.text = ""
-                    self.emailTF.text = ""
-                    self.passwordTF.text = ""
-                })
+                alert.addAction(UIAlertAction(title: "OK".localized(), style: .default))
                 self.present(alert, animated: true, completion: nil)
                 return
             }
-            let alert = UIAlertController(title: "Signed in", message: "Successfully signed in", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK".localized(), style: .default) { _ in
-                self.usernameTF.text = ""
-                self.emailTF.text = ""
-                self.passwordTF.text = ""
-            })
-            self.present(alert, animated: true, completion: nil)
+            self.segueToMainTabBarController(animated: true)
         }
-        
     }
     
     private func handleRegistration() {
         guard let username = usernameTF.text, let email = emailTF.text, let password = passwordTF.text else { return }
-        
         FirebaseService.shared().createUser(username: username, email: email, password: password) { (error: Error?) in
             var alertTitle: String
             var alertMessage: String
@@ -225,15 +231,25 @@ class LoginController: UIViewController, UITextFieldDelegate {
             let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK".localized(), style: .default) { _ in
                 if error == nil {
-                    self.usernameTF.text = ""
-                    self.emailTF.text = ""
-                    self.passwordTF.text = ""
+                    self.clearInputs()
                     self.loginRegisterSegmentedControl.selectedSegmentIndex = 0
                     self.handleLoginRegisterChange()
                 }
             })
             self.present(alert, animated: true, completion: nil)
         }
+    }
+    
+    private func clearInputs() {
+        usernameTF.text = ""
+        emailTF.text = ""
+        passwordTF.text = ""
+    }
+    
+    // MARK: Navigation
+    
+    private func segueToMainTabBarController(animated: Bool) {
+         navigationController?.pushViewController(MainTabBarController(), animated: animated)
     }
     
     // MARK: Setup Views

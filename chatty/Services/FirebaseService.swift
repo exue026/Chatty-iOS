@@ -85,6 +85,21 @@ class FirebaseService {
         }
     }
     
+    func logoutCurrentUser() -> Bool {
+        do {
+            try FIRAuth.auth()?.signOut()
+        }
+        catch let error {
+            print(error)
+            return false
+        }
+        return true
+    }
+    
+    func checkPersistentUserSession(handler: @escaping (Bool) -> Void) {
+        FIRAuth.auth()?.currentUser != nil ? handler(true) : handler(false)
+    }
+    
     // MARK: Helper Functions
     
     static func shared() -> FirebaseService {
