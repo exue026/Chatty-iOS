@@ -8,8 +8,13 @@
 
 import Foundation
 
-struct Network {
-    static let baseURL = ""
+struct NetworkRes {
+    static let baseURL_DEV = "http://localhost:8080"
+}
+
+struct FirebaseRes {
+    static let databaseURL = "https://chatty-428c3.firebaseio.com/"
+    static let main_dir = "Users"
 }
 
 
