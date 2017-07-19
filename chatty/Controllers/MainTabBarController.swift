@@ -19,33 +19,40 @@ class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print(className + " : " + "didLoad")
-        
         view.backgroundColor = UIColor(theme: .purpleblue)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
         
-        let userProfileVC = UserProfileControllerViewController()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "LOGOUT".localized(), style: .plain, target: self, action: #selector(handleLogout))
+        
+        let userProfileVC = UserProfileViewController()
         userProfileVC.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.contacts, tag: 0)
         
         viewControllers = [userProfileVC]
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: true)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: true)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        FirebaseService.shared().checkPersistentUserSession { (isLoggedIn: Bool) in
+            if !isLoggedIn {
+                self.segueToLoginController()
+            }
+        }
     }
     
     deinit {
         print(className + " : " + "deinitializing")
     }
     
+    // MARK: Logout button target
+    
     @objc private func handleLogout() {
         if FirebaseService.shared().logoutCurrentUser() {
-            navigationController?.popViewController(animated: true)
+            segueToLoginController()
         }
+    }
+    
+    // MARK: Navigation
+    
+    private func segueToLoginController() {
+        present(LoginController(), animated: true, completion: nil)
     }
 }

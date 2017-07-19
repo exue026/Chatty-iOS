@@ -17,5 +17,6 @@
 "OK" = "Ok";
 "LOGIN_BLANK_FIELDS" = "There are one or more missing fields";
 "EMAIL_UNVERIFIED" = "Your account is not verified. Please follow the instructions in the confirmation email to verify your account";
+"LOGOUT" = "Logout";
 
 

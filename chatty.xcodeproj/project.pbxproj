@@ -13,7 +13,7 @@
 		A12AF1F61F171CA700ECD541 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A12AF1F41F171CA700ECD541 /* GoogleService-Info.plist */; };
 		A1652AE41F1AFF3E00140549 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1652AE31F1AFF3E00140549 /* Error.swift */; };
 		A1652AE61F1B19AF00140549 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1652AE51F1B19AF00140549 /* MainTabBarController.swift */; };
-		A16658E71F1DBF6A00C98A33 /* UserProfileControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16658E61F1DBF6A00C98A33 /* UserProfileControllerViewController.swift */; };
+		A16658E71F1DBF6A00C98A33 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16658E61F1DBF6A00C98A33 /* UserProfileViewController.swift */; };
 		A166DF421F11D5A90014C0A5 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A166DF401F11D5A90014C0A5 /* Localizable.strings */; };
 		A166DF461F11E47B0014C0A5 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = A166DF451F11E47B0014C0A5 /* String.swift */; };
 		A166DF481F11E9440014C0A5 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A166DF471F11E9440014C0A5 /* UIColor.swift */; };
@@ -46,7 +46,7 @@
 		A12AF1F41F171CA700ECD541 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Desktop/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A1652AE31F1AFF3E00140549 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		A1652AE51F1B19AF00140549 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
-		A16658E61F1DBF6A00C98A33 /* UserProfileControllerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileControllerViewController.swift; sourceTree = "<group>"; };
+		A16658E61F1DBF6A00C98A33 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		A166DF411F11D5A90014C0A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = chatty/Base.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 		A166DF451F11E47B0014C0A5 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		A166DF471F11E9440014C0A5 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
@@ -101,7 +101,7 @@
 			children = (
 				A1BD7B231F117A5600E217FC /* LoginController.swift */,
 				A1652AE51F1B19AF00140549 /* MainTabBarController.swift */,
-				A16658E61F1DBF6A00C98A33 /* UserProfileControllerViewController.swift */,
+				A16658E61F1DBF6A00C98A33 /* UserProfileViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -402,7 +402,7 @@
 			files = (
 				A1BD7B241F117A5600E217FC /* LoginController.swift in Sources */,
 				A12AF1F21F16EA8D00ECD541 /* APIService.swift in Sources */,
-				A16658E71F1DBF6A00C98A33 /* UserProfileControllerViewController.swift in Sources */,
+				A16658E71F1DBF6A00C98A33 /* UserProfileViewController.swift in Sources */,
 				A1B374661F186474009866D8 /* FirebaseService.swift in Sources */,
 				A1BD7B221F117A5600E217FC /* AppDelegate.swift in Sources */,
 				A1652AE61F1B19AF00140549 /* MainTabBarController.swift in Sources */,

@@ -29,7 +29,7 @@ class FirebaseService {
     // MARK: Initializers
     
     private init(databaseURL: String) {
-        databaseRef = FIRDatabase.database().reference(fromURL: databaseURL)
+        databaseRef = FIRDatabase.database().reference(fromURL: databaseURL).child(FirebaseRes.main_dir)
     }
     
     // MARK: Authentication
@@ -49,7 +49,7 @@ class FirebaseService {
                     return
                 }
                 guard let uid = user?.uid else { return }
-                let usersRef = self.databaseRef.child("Users").child(uid)
+                let usersRef = self.databaseRef.child(uid)
                 let values = ["username": username, "email": email, "password": password]
                 usersRef.updateChildValues(values, withCompletionBlock: { (error3: Error?, _) in
                     if let error = error3 {

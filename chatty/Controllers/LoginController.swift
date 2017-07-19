@@ -15,10 +15,6 @@ class LoginController: UIViewController, UITextFieldDelegate {
     
     let className = String(typeOfClass: LoginController.self)
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    
     private let chattyLogo: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -85,7 +81,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
         return textField
     }()
     
-    private var loginRegisterButton: UIButton = {
+    private let loginRegisterButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = UIColor(theme: .thistle)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -120,7 +116,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         print(className + " : " + "didLoad")
         view.backgroundColor = UIColor(theme: .purpleblue)
-
+        
         usernameTF.delegate = self
         emailTF.delegate = self
         passwordTF.delegate = self
@@ -134,17 +130,6 @@ class LoginController: UIViewController, UITextFieldDelegate {
         setupLoginRegisterSegmentedControl()
         setupInputsView()
         setupRegisterButton()
-        
-        FirebaseService.shared().checkPersistentUserSession { (isLoggedIn: Bool) in
-            if isLoggedIn {
-                self.segueToMainTabBarController(animated: false)
-            }
-        }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
     deinit {
@@ -193,6 +178,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
     
     @objc private func handleLoginRegistration() {
         self.view.endEditing(true)
+        clearInputs()
         if loginRegisterSegmentedControl.selectedSegmentIndex == 0 {
             handleLogin()
         }
@@ -211,7 +197,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
                 self.present(alert, animated: true, completion: nil)
                 return
             }
-            self.segueToMainTabBarController(animated: true)
+            self.segueToMainTabBarController()
         }
     }
     
@@ -248,8 +234,8 @@ class LoginController: UIViewController, UITextFieldDelegate {
     
     // MARK: Navigation
     
-    private func segueToMainTabBarController(animated: Bool) {
-         navigationController?.pushViewController(MainTabBarController(), animated: animated)
+    private func segueToMainTabBarController() {
+         dismiss(animated: true, completion: nil)
     }
     
     // MARK: Setup Views
