@@ -12,7 +12,6 @@ target 'chatty' do
 
   target 'chattyTests' do
     inherit! :search_paths
-    # Pods for testing
   end
 
 end

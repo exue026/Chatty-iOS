@@ -14,7 +14,7 @@ class MainTabBarController: UITabBarController {
     
     let className = String(typeOfClass: MainTabBarController.self)
     
-    // MARK: Initializers and deinitializers
+    // MARK: Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()

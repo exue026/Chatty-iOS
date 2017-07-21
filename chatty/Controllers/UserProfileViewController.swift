@@ -17,7 +17,7 @@ class UserProfileViewController: UIViewController {
     private let coverPhoto: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: #imageLiteral(resourceName: "chatty_launchscreen"))
+        imageView.image = UIImage(named: "chatty_launchscreen")
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
@@ -25,15 +25,15 @@ class UserProfileViewController: UIViewController {
     private let profilePic: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: #imageLiteral(resourceName: "ethan_face"))
+        imageView.image = UIImage(named: "ethan_face")
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
-    // MARK: Initializers and deinitializers
+    // MARK: Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print(className + " : " + "didLoad")
     }
 }

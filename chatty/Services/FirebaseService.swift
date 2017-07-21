@@ -76,12 +76,17 @@ class FirebaseService {
                     try FIRAuth.auth()?.signOut()
                 }
                 catch let error2 {
-                    print(error2)
+                    print(self.className + " : " + error2.localizedDescription)
                 }
                 handler(CustomFirebaseError.emailNotVerified)
                 return
             }
-            handler(nil)
+            APIService.shared().postUid(uid: user.uid, handler: { (error3: Error?) in
+                if error3 != nil {
+                    return
+                }
+                handler(nil)
+            })
         }
     }
     
