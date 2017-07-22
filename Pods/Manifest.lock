@@ -44,11 +44,33 @@ PODS:
     - GoogleToolboxForMac/NSString+URLArguments (= 2.1.0)
   - GoogleToolboxForMac/NSString+URLArguments (2.1.0)
   - GTMSessionFetcher/Core (1.1.7)
+  - PromiseKit (4.2.2):
+    - PromiseKit/Foundation (= 4.2.2)
+    - PromiseKit/QuartzCore (= 4.2.2)
+    - PromiseKit/UIKit (= 4.2.2)
+  - PromiseKit/CorePromise (4.2.2)
+  - PromiseKit/Foundation (4.2.2):
+    - PromiseKit/CorePromise
+  - PromiseKit/QuartzCore (4.2.2):
+    - PromiseKit/CorePromise
+  - PromiseKit/UIKit (4.2.2):
+    - PromiseKit/CorePromise
 
 DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Database
   - Firebase/Storage
+  - PromiseKit (from `https://github.com/mxcl/PromiseKit.git`, branch `swift4-beta1`)
+
+EXTERNAL SOURCES:
+  PromiseKit:
+    :branch: swift4-beta1
+    :git: https://github.com/mxcl/PromiseKit.git
+
+CHECKOUT OPTIONS:
+  PromiseKit:
+    :commit: 1cd1092b31739af70c81a6708123a0a1ca7eb61a
+    :git: https://github.com/mxcl/PromiseKit.git
 
 SPEC CHECKSUMS:
   Firebase: ff77ffb77b317c3720fef57a60e9335cebf962e6
@@ -62,7 +84,8 @@ SPEC CHECKSUMS:
   GoogleSymbolUtilities: 631ee17048aa5e9ab133470d768ea997a5ef9b96
   GoogleToolboxForMac: 2b2596cbb7186865e98cadf2b1e262d851c2b168
   GTMSessionFetcher: a1f8ed39e4fe21c68957daed472c7afbcdf29166
+  PromiseKit: 151f0f73a000933188ef81c14be0e0401bc330a3
 
-PODFILE CHECKSUM: aefaa0afd39abd333d568bb8d20938b73610bc0d
+PODFILE CHECKSUM: 0cf2fb817fe8ff23fc9b5ea961d72fa7a167c189
 
 COCOAPODS: 1.1.1

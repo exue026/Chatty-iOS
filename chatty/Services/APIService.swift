@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import PromiseKit
 
 enum RequestType: String {
     case GET = "GET"
@@ -35,8 +36,8 @@ class APIService {
     
     // MARK: HTTP Requests
     
-    func postUid(uid: String, handler: @escaping (Error?) -> Void) {
-        sendRequest(endpoint: "/users/uids/\(uid)", type: .POST, handler: handler)
+    func postIdToken(idToken: String, handler: @escaping (Error?) -> Void) {
+        sendRequest(endpoint: "/users/idTokens/\(idToken)", type: .POST, handler: handler)
     }
     
     func getUser(uid: String, handler: @escaping (Error?) -> Void) {

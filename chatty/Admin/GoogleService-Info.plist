@@ -7,21 +7,21 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>817496457761-k49uh3iquqf34cl62v18badhv1os5coq.apps.googleusercontent.com</string>
+	<string>57811651428-vuivcojd9q580ofs0f7csuh803jiffg2.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.817496457761-k49uh3iquqf34cl62v18badhv1os5coq</string>
+	<string>com.googleusercontent.apps.57811651428-vuivcojd9q580ofs0f7csuh803jiffg2</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBbSZ9iD-QhXhbW-gycgqvczqeUjHzzUUc</string>
+	<string>AIzaSyBYEp3t680vdcvWw686X379BvBNSDdRyFg</string>
 	<key>GCM_SENDER_ID</key>
-	<string>817496457761</string>
+	<string>57811651428</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.ethanxue.chatty</string>
 	<key>PROJECT_ID</key>
-	<string>chatty-e3406</string>
+	<string>chatty-428c3</string>
 	<key>STORAGE_BUCKET</key>
-	<string>chatty-e3406.appspot.com</string>
+	<string>chatty-428c3.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<true/>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -33,8 +33,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:817496457761:ios:2b7d1d005cee6b6f</string>
+	<string>1:57811651428:ios:2b7d1d005cee6b6f</string>
 	<key>DATABASE_URL</key>
-	<string>https://chatty-e3406.firebaseio.com</string>
+	<string>https://chatty-428c3.firebaseio.com</string>
 </dict>
 </plist>

@@ -81,12 +81,15 @@ class FirebaseService {
                 handler(CustomFirebaseError.emailNotVerified)
                 return
             }
-            APIService.shared().postUid(uid: user.uid, handler: { (error3: Error?) in
-                if error3 != nil {
-                    return
-                }
-                handler(nil)
-            })
+            user.getTokenForcingRefresh(true) { (idToken: String?, error3: Error?) in
+                guard let idToken = idToken else { return }
+                APIService.shared().postIdToken(idToken: idToken, handler: { (error4: Error?) in
+                    if error4 != nil {
+                        return
+                    }
+                    handler(nil)
+                })
+            }
         }
     }
     
