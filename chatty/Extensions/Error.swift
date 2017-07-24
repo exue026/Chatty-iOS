@@ -15,6 +15,20 @@ extension CustomFirebaseError : LocalizedError {
             return "LOGIN_BLANK_FIELDS".localized()
         case .emailNotVerified:
             return "EMAIL_UNVERIFIED".localized()
+        case .unknownError:
+            return "UNKNOWN_ERROR".localized()
         }
     }
 }
+
+extension CustomAPIError: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+        case .cannotRetrieveData:
+            return "DATA_NOT_FETCHED".localized()
+        case .invalidDataFormat:
+            return "INVALID_DATA_FORMAT".localized()
+        }
+    }
+}
+

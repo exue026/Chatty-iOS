@@ -11,12 +11,15 @@
 "USERNAME" = "Username";
 "EMAIL" = "Email";
 "PASSWORD" = "Password";
-"VERIFY_EMAIL_TITLE" = "Verify Account";
+"VERIFY_EMAIL_TITLE" = "Verify Account.";
 "VERIFY_EMAIL_MSG" = "A verification email has been sent to the address you provided. Please follow the instructions in the email to proceed.";
 "ERROR" = "Error";
 "OK" = "Ok";
-"LOGIN_BLANK_FIELDS" = "There are one or more missing fields";
-"EMAIL_UNVERIFIED" = "Your account is not verified. Please follow the instructions in the confirmation email to verify your account";
+"LOGIN_BLANK_FIELDS" = "There are one or more missing fields.";
+"EMAIL_UNVERIFIED" = "Your account is not verified. Please follow the instructions in the confirmation email to verify your account.";
 "LOGOUT" = "Logout";
+"DATA_NOT_FETCHED" = "Unable to retrieve data.";
+"UNKNOWN_ERROR" = "An unknown error occured.";
+"INVALID_DATA_FORMAT" = "The retrieved data is in an invalid format.";
 
 

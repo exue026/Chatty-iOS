@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import Firebase
+import PromiseKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

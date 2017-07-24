@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import PromiseKit
 
 class LoginController: UIViewController, UITextFieldDelegate {
     
@@ -188,16 +189,12 @@ class LoginController: UIViewController, UITextFieldDelegate {
     
     private func handleLogin() {
         guard let email = emailTF.text, let password = passwordTF.text else { return }
-        FirebaseService.shared().signInUser(email: email, password: password) { (error: Error?) in
-            if let error = error {
-                let alert = UIAlertController(title: "ERROR".localized(), message: error.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK".localized(), style: .default) { _ in
-                    self.clearInputs()
-                })
-                self.present(alert, animated: true, completion: nil)
-                return
-            }
+        FirebaseService.shared().signInUser(email: email, password: password).then {_ in
             self.segueToMainTabBarController()
+        }.catch { (error: Error) in
+            let alert = UIAlertController(title: "ERROR".localized(), message: error.localizedDescription, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK".localized(), style: .default))
+            self.present(alert, animated: true, completion: nil)
         }
     }
     
