@@ -76,12 +76,20 @@ class FirebaseService {
                     try FIRAuth.auth()?.signOut()
                 }
                 catch let error2 {
-                    print(error2)
+                    print(self.className + " : " + error2.localizedDescription)
                 }
                 handler(CustomFirebaseError.emailNotVerified)
                 return
             }
-            handler(nil)
+            user.getTokenForcingRefresh(true) { (idToken: String?, error3: Error?) in
+                guard let idToken = idToken else { return }
+                APIService.shared().postIdToken(idToken: idToken, handler: { (error4: Error?) in
+                    if error4 != nil {
+                        return
+                    }
+                    handler(nil)
+                })
+            }
         }
     }
     

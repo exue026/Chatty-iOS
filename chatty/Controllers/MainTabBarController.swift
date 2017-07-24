@@ -14,12 +14,12 @@ class MainTabBarController: UITabBarController {
     
     let className = String(typeOfClass: MainTabBarController.self)
     
-    // MARK: Initializers and deinitializers
+    // MARK: Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print(className + " : " + "didLoad")
-        view.backgroundColor = UIColor(theme: .purpleblue)
+        view.backgroundColor = UIColor.white
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "LOGOUT".localized(), style: .plain, target: self, action: #selector(handleLogout))
         

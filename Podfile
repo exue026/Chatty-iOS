@@ -9,10 +9,10 @@ target 'chatty' do
     pod 'Firebase/Database'
     pod 'Firebase/Auth'
     pod 'Firebase/Storage'
+    pod "PromiseKit", :git => 'https://github.com/mxcl/PromiseKit.git', :branch => "swift4-beta1"
 
   target 'chattyTests' do
     inherit! :search_paths
-    # Pods for testing
   end
 
 end

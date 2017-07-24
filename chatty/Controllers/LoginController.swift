@@ -110,7 +110,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
         return view
     }()
     
-    // MARK: Initializers and deinitializers
+    // MARK: Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -147,9 +147,9 @@ class LoginController: UIViewController, UITextFieldDelegate {
     
     @objc private func handleLoginRegisterChange() {
         self.view.endEditing(true)
+        clearInputs()
         let title = loginRegisterSegmentedControl.titleForSegment(at: loginRegisterSegmentedControl.selectedSegmentIndex)
         loginRegisterButton.setTitle(title, for: .normal)
-        clearInputs()
         
         inputsViewHeightAnchor?.constant = loginRegisterSegmentedControl.selectedSegmentIndex == 0 ? 100 : 150
         
@@ -178,7 +178,6 @@ class LoginController: UIViewController, UITextFieldDelegate {
     
     @objc private func handleLoginRegistration() {
         self.view.endEditing(true)
-        clearInputs()
         if loginRegisterSegmentedControl.selectedSegmentIndex == 0 {
             handleLogin()
         }
@@ -190,10 +189,11 @@ class LoginController: UIViewController, UITextFieldDelegate {
     private func handleLogin() {
         guard let email = emailTF.text, let password = passwordTF.text else { return }
         FirebaseService.shared().signInUser(email: email, password: password) { (error: Error?) in
-            self.clearInputs()
             if let error = error {
                 let alert = UIAlertController(title: "ERROR".localized(), message: error.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK".localized(), style: .default))
+                alert.addAction(UIAlertAction(title: "OK".localized(), style: .default) { _ in
+                    self.clearInputs()
+                })
                 self.present(alert, animated: true, completion: nil)
                 return
             }
