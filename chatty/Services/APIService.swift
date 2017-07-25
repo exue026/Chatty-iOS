@@ -45,10 +45,6 @@ class APIService {
         return sendRequest(endpoint: "/users/idTokens/\(idToken)", type: .POST)
     }
     
-    func getUser(uid: String) -> Promise<Any> {
-        return sendRequest(endpoint: "/users", type: .GET)
-    }
-    
     private func sendRequest(endpoint: String, type: RequestType) -> Promise<Any> {
         return Promise { resolve, reject in
             guard let url = URL(string: baseURL + endpoint) else { return }
@@ -78,6 +74,4 @@ class APIService {
     static func shared() -> APIService {
         return sharedInstance
     }
-    
-    
 }

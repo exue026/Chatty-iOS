@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  LoginController.swift
 //  chatty
 //
 //  Created by Ethan Xue on 2017-07-08.
@@ -37,8 +37,8 @@ class LoginController: UIViewController, UITextFieldDelegate {
     
     private let inputsView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.white
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.white
         view.layer.cornerRadius = 5.0
         view.layer.masksToBounds = true
         return view
@@ -49,8 +49,8 @@ class LoginController: UIViewController, UITextFieldDelegate {
     private let usernameTF: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.attributedPlaceholder = NSAttributedString(string: "USERNAME".localized(), attributes: [NSAttributedStringKey.foregroundColor: UIColor(theme: .grey)])
         textField.backgroundColor = UIColor.white
+        textField.attributedPlaceholder = NSAttributedString(string: "USERNAME".localized(), attributes: [NSAttributedStringKey.foregroundColor: UIColor(theme: .grey)])
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         return textField
@@ -60,9 +60,9 @@ class LoginController: UIViewController, UITextFieldDelegate {
     
     private let emailTF: UITextField = {
         let textField = UITextField()
+        textField.backgroundColor = UIColor.white
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.attributedPlaceholder = NSAttributedString(string: "EMAIL".localized(), attributes: [NSAttributedStringKey.foregroundColor: UIColor(theme: .grey)])
-        textField.backgroundColor = UIColor.white
         textField.keyboardType = .emailAddress
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
@@ -74,9 +74,9 @@ class LoginController: UIViewController, UITextFieldDelegate {
     private let passwordTF: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.backgroundColor = UIColor.white
         textField.attributedPlaceholder = NSAttributedString(string: "PASSWORD".localized(), attributes: [NSAttributedStringKey.foregroundColor: UIColor(theme: .grey)])
         textField.isSecureTextEntry = true
-        textField.backgroundColor = UIColor.white
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         return textField
@@ -84,13 +84,13 @@ class LoginController: UIViewController, UITextFieldDelegate {
     
     private let loginRegisterButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = UIColor(theme: .thistle)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.cornerRadius = 5
-        button.layer.masksToBounds = true
+        button.backgroundColor = UIColor(theme: .thistle)
         button.setTitle("LOGIN".localized(), for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        button.layer.cornerRadius = 5
+        button.layer.masksToBounds = true
         button.addTarget(self, action: #selector(handleLoginRegistration), for: .touchUpInside)
         return button
     }()
@@ -189,9 +189,9 @@ class LoginController: UIViewController, UITextFieldDelegate {
     
     private func handleLogin() {
         guard let email = emailTF.text, let password = passwordTF.text else { return }
-        FirebaseService.shared().signInUser(email: email, password: password).then {_ in
+        FirebaseService.shared().signInUser(email: email, password: password).then { _ -> Void  in
             self.segueToMainTabBarController()
-        }.catch { (error: Error) in
+        }.catch { error in
             let alert = UIAlertController(title: "ERROR".localized(), message: error.localizedDescription, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK".localized(), style: .default))
             self.present(alert, animated: true, completion: nil)
@@ -200,28 +200,27 @@ class LoginController: UIViewController, UITextFieldDelegate {
     
     private func handleRegistration() {
         guard let username = usernameTF.text, let email = emailTF.text, let password = passwordTF.text else { return }
-        FirebaseService.shared().createUser(username: username, email: email, password: password) { (error: Error?) in
-            var alertTitle: String
-            var alertMessage: String
-            if let error = error {
+        var alertTitle = "", alertMessage = "", alertAction = UIAlertAction()
+        FirebaseService.shared().createUser(username: username, email: email, password: password).then { _ -> Void in
+            alertTitle = "VERIFY_EMAIL_TITLE".localized()
+            alertMessage = "VERIFY_EMAIL_MSG".localized()
+            alertAction = UIAlertAction(title: "OK".localized(), style: .default) { _ in
+                self.clearInputs()
+                self.loginRegisterSegmentedControl.selectedSegmentIndex = 0
+                self.handleLoginRegisterChange()
+            }
+        }.catch { error in
                 alertTitle = "ERROR".localized()
                 alertMessage = error.localizedDescription
-            }
-            else {
-                alertTitle = "VERIFY_EMAIL_TITLE".localized()
-                alertMessage = "VERIFY_EMAIL_MSG".localized()
-            }
-            let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK".localized(), style: .default) { _ in
-                if error == nil {
-                    self.clearInputs()
-                    self.loginRegisterSegmentedControl.selectedSegmentIndex = 0
-                    self.handleLoginRegisterChange()
-                }
-            })
-            self.present(alert, animated: true, completion: nil)
+                alertAction = UIAlertAction(title: "OK".localized(), style: .default, handler: nil)
+        }.always {
+                let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+                alert.addAction(alertAction)
+                self.present(alert, animated: true, completion: nil)
         }
     }
+    
+    // MARK: Helper functions
     
     private func clearInputs() {
         usernameTF.text = ""

@@ -37,11 +37,15 @@ class UserProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print(className + " : " + "didLoad")
-        
         view.backgroundColor = UIColor(theme: .purpleblue)
+        
         view.addSubview(coverPhoto)
         
         setupCoverPhoto()
+    }
+    
+    deinit {
+        print(className + " : " + "deinitializing")
     }
     
     // MARK: Setup views
