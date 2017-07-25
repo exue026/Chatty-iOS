@@ -37,11 +37,15 @@ class UserProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print(className + " : " + "didLoad")
-        
         view.backgroundColor = UIColor(theme: .purpleblue)
+        
         view.addSubview(coverPhoto)
         
         setupCoverPhoto()
+    }
+    
+    deinit {
+        print(className + " : " + "deinitializing")
     }
     
     // MARK: Setup views
@@ -58,8 +62,8 @@ class UserProfileViewController: UIViewController {
     }
     
     private func setupProfilePic() {
-        profilePic.widthAnchor.constraint(equalToConstant: 75).isActive = true
-        profilePic.heightAnchor.constraint(equalToConstant: 75).isActive = true
+        profilePic.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        profilePic.heightAnchor.constraint(equalToConstant: 100).isActive = true
         profilePic.centerXAnchor.constraint(equalTo: coverPhoto.centerXAnchor).isActive = true
         profilePic.topAnchor.constraint(equalTo: coverPhoto.topAnchor, constant: 170).isActive = true
     }

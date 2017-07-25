@@ -16,6 +16,11 @@ enum RequestType: String {
     case DELETE = "DELETE"
 }
 
+enum CustomAPIError : Error {
+    case cannotRetrieveData
+    case invalidDataFormat
+}
+
 class APIService {
     
     // MARK: Properties
@@ -36,38 +41,32 @@ class APIService {
     
     // MARK: HTTP Requests
     
-    func postIdToken(idToken: String, handler: @escaping (Error?) -> Void) {
-        sendRequest(endpoint: "/users/idTokens/\(idToken)", type: .POST, handler: handler)
+    func postIdToken(idToken: String) -> Promise<Any> {
+        return sendRequest(endpoint: "/users/idTokens/\(idToken)", type: .POST)
     }
     
-    func getUser(uid: String, handler: @escaping (Error?) -> Void) {
-        sendRequest(endpoint: "/users", type: .GET, handler: handler)
-    }
-    
-    private func sendRequest(endpoint: String, type: RequestType, handler: @escaping (Error?) -> Void) {
-        guard let url = URL(string: baseURL + endpoint) else { return }
-        var request = URLRequest(url: url)
-        request.httpMethod = type.rawValue
-        let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
-            if let error = error {
-                print(self.className + " : " + error.localizedDescription)
-                handler(error)
-                return
+    private func sendRequest(endpoint: String, type: RequestType) -> Promise<Any> {
+        return Promise { resolve, reject in
+            guard let url = URL(string: baseURL + endpoint) else { return }
+            var request = URLRequest(url: url)
+            request.httpMethod = type.rawValue
+            let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+                if let error = error {
+                    print(self.className + " : " + error.localizedDescription)
+                    return reject(error)
+                }
+                if type == .POST { return resolve(()) }
+                guard let data = data, !data.isEmpty else { return reject(CustomAPIError.cannotRetrieveData) }
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) 
+                    return resolve(json)
+                } catch let error {
+                    print(self.className + " : " + error.localizedDescription)
+                    return reject(error)
+                }
             }
-            guard let data = data, !data.isEmpty else {
-                handler(nil)
-                return
-            }
-            do {
-                let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers)
-                print(json)
-                handler(nil)
-            } catch let error {
-                print(self.className + " : " + error.localizedDescription)
-                handler(error)
-            }
+            task.resume()
         }
-        task.resume()
     }
     
     // MARK: Helper Functions

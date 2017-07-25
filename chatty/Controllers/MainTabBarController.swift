@@ -31,10 +31,8 @@ class MainTabBarController: UITabBarController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        FirebaseService.shared().checkPersistentUserSession { (isLoggedIn: Bool) in
-            if !isLoggedIn {
-                self.segueToLoginController()
-            }
+        if !FirebaseService.shared().currentUserExists() {
+            self.segueToLoginController()
         }
     }
     
