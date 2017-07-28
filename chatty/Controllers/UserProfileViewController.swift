@@ -32,6 +32,8 @@ class UserProfileViewController: UIViewController {
         return imageView
     }()
     
+    private let spinner = LoadingSpinner(frame: CGRect.zero)
+    
     // MARK: Lifecycle
 
     override func viewDidLoad() {
@@ -39,13 +41,29 @@ class UserProfileViewController: UIViewController {
         print(className + " : " + "didLoad")
         view.backgroundColor = UIColor(theme: .purpleblue)
         
-        view.addSubview(coverPhoto)
+        self.navigationItem.title = "PROFILE".localized()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "LOGOUT".localized(), style: .plain, target: self, action: #selector(handleLogout))
         
+        view.addSubview(coverPhoto)
         setupCoverPhoto()
     }
     
     deinit {
         print(className + " : " + "deinitializing")
+    }
+    
+    // MARK: Logout button target
+    
+    @objc private func handleLogout() {
+        if FirebaseService.shared().logoutCurrentUser() {
+            segueToLoginController()
+        }
+    }
+    
+    // MARK: Navigation
+    
+    private func segueToLoginController() {
+        present(LoginController(), animated: true, completion: nil)
     }
     
     // MARK: Setup views

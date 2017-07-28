@@ -24,6 +24,7 @@
 		A1BD7B241F117A5600E217FC /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BD7B231F117A5600E217FC /* LoginController.swift */; };
 		A1BD7B2A1F117A5600E217FC /* chatty.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A1BD7B281F117A5600E217FC /* chatty.xcdatamodeld */; };
 		A1BD7B2C1F117A5600E217FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1BD7B2B1F117A5600E217FC /* Assets.xcassets */; };
+		A1FF8D7F1F2A75FE008DC719 /* LoadingSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FF8D7E1F2A75FE008DC719 /* LoadingSpinner.swift */; };
 		F22C2C65036D4E653FD4FB92 /* Pods_chattyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16FF2255DEE6D827A1E02DC4 /* Pods_chattyTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +62,7 @@
 		A1BD7B351F117A5700E217FC /* chattyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = chattyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1BD7B391F117A5700E217FC /* chattyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chattyTests.swift; sourceTree = "<group>"; };
 		A1BD7B3B1F117A5700E217FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A1FF8D7E1F2A75FE008DC719 /* LoadingSpinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingSpinner.swift; sourceTree = "<group>"; };
 		A6BE708FC242393D413A7D7E /* Pods_chatty.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_chatty.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4662942735C1DC5FEB224D7 /* Pods-chattyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chattyTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-chattyTests/Pods-chattyTests.release.xcconfig"; sourceTree = "<group>"; };
 		E809C24D72F31C7A57FB7B07 /* Pods-chatty.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chatty.release.xcconfig"; path = "Pods/Target Support Files/Pods-chatty/Pods-chatty.release.xcconfig"; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				A18623BE1F131FA0005EABFC /* Admin */,
+				A1FF8D7D1F2A75D1008DC719 /* Views */,
 				A166DF3D1F11CD110014C0A5 /* Controllers */,
 				A166DF4B1F129B410014C0A5 /* Services */,
 				A166DF441F11D7D80014C0A5 /* Extensions */,
@@ -185,6 +188,14 @@
 				A1BD7B3B1F117A5700E217FC /* Info.plist */,
 			);
 			path = chattyTests;
+			sourceTree = "<group>";
+		};
+		A1FF8D7D1F2A75D1008DC719 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A1FF8D7E1F2A75FE008DC719 /* LoadingSpinner.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		C42B04BC95DE7C74F865FF65 /* Pods */ = {
@@ -406,6 +417,7 @@
 				A1652AE61F1B19AF00140549 /* MainTabBarController.swift in Sources */,
 				A166DF461F11E47B0014C0A5 /* String.swift in Sources */,
 				A1BD7B2A1F117A5600E217FC /* chatty.xcdatamodeld in Sources */,
+				A1FF8D7F1F2A75FE008DC719 /* LoadingSpinner.swift in Sources */,
 				A166DF481F11E9440014C0A5 /* UIColor.swift in Sources */,
 				A1652AE41F1AFF3E00140549 /* Error.swift in Sources */,
 				A166DF4A1F129A1E0014C0A5 /* Constants.swift in Sources */,

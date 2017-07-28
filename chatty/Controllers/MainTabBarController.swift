@@ -21,12 +21,10 @@ class MainTabBarController: UITabBarController {
         print(className + " : " + "didLoad")
         view.backgroundColor = UIColor.white
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "LOGOUT".localized(), style: .plain, target: self, action: #selector(handleLogout))
-        
         let userProfileVC = UserProfileViewController()
         userProfileVC.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.contacts, tag: 0)
         
-        viewControllers = [userProfileVC]
+        viewControllers = [UINavigationController(rootViewController: userProfileVC)]
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -38,14 +36,6 @@ class MainTabBarController: UITabBarController {
     
     deinit {
         print(className + " : " + "deinitializing")
-    }
-    
-    // MARK: Logout button target
-    
-    @objc private func handleLogout() {
-        if FirebaseService.shared().logoutCurrentUser() {
-            segueToLoginController()
-        }
     }
     
     // MARK: Navigation
