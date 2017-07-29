@@ -111,6 +111,8 @@ class LoginController: UIViewController, UITextFieldDelegate {
         return view
     }()
     
+    private lazy var spinner = LoadingSpinner(frame: CGRect.zero)
+    
     // MARK: Lifecycle
     
     override func viewDidLoad() {
@@ -126,11 +128,13 @@ class LoginController: UIViewController, UITextFieldDelegate {
         view.addSubview(loginRegisterSegmentedControl)
         view.addSubview(inputsView)
         view.addSubview(loginRegisterButton)
+        view.addSubview(spinner)
         
         setupChattyLogo()
         setupLoginRegisterSegmentedControl()
         setupInputsView()
         setupRegisterButton()
+        setupSpinner()
     }
     
     deinit {
@@ -188,6 +192,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
     }
     
     private func handleLogin() {
+        spinner.start()
         guard let email = emailTF.text, let password = passwordTF.text else { return }
         FirebaseService.shared().signInUser(email: email, password: password).then { _ -> Void  in
             self.segueToMainTabBarController()
@@ -195,10 +200,13 @@ class LoginController: UIViewController, UITextFieldDelegate {
             let alert = UIAlertController(title: "ERROR".localized(), message: error.localizedDescription, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK".localized(), style: .default))
             self.present(alert, animated: true, completion: nil)
+        }.always {
+            self.spinner.stop()
         }
     }
     
     private func handleRegistration() {
+        spinner.start()
         guard let username = usernameTF.text, let email = emailTF.text, let password = passwordTF.text else { return }
         var alertTitle = "", alertMessage = "", alertAction = UIAlertAction()
         FirebaseService.shared().createUser(username: username, email: email, password: password).then { _ -> Void in
@@ -214,6 +222,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
                 alertMessage = error.localizedDescription
                 alertAction = UIAlertAction(title: "OK".localized(), style: .default, handler: nil)
         }.always {
+                self.spinner.stop()
                 let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
                 alert.addAction(alertAction)
                 self.present(alert, animated: true, completion: nil)
@@ -314,6 +323,11 @@ class LoginController: UIViewController, UITextFieldDelegate {
         passwordTF.widthAnchor.constraint(equalTo: inputsView.widthAnchor, constant: -12).isActive = true
         passwordTFHeightAnchor =  passwordTF.heightAnchor.constraint(equalTo: inputsView.heightAnchor, multiplier: 1/2)
         passwordTFHeightAnchor?.isActive = true
+    }
+    
+    private func setupSpinner() {
+        spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
     
 }

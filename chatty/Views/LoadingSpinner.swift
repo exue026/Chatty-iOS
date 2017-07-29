@@ -22,6 +22,8 @@ class LoadingSpinner: UIView {
         spinner = UIActivityIndicatorView(activityIndicatorStyle: .white)
         super.init(frame: frame)
         
+        self.isHidden = true
+        
         setupView()
         addSubview(spinner)
         setupSpinner()
@@ -39,25 +41,27 @@ class LoadingSpinner: UIView {
     
     private func setupView() {
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        self.backgroundColor = UIColor.black.withAlphaComponent(0.8)
         self.layer.cornerRadius = 5
         self.layer.masksToBounds = true
-        self.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        self.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        self.widthAnchor.constraint(equalToConstant: 90).isActive = true
+        self.heightAnchor.constraint(equalToConstant: 90).isActive = true
     }
     
     private func setupSpinner() {
         spinner.translatesAutoresizingMaskIntoConstraints = false
-        spinner.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+        spinner.transform = CGAffineTransform(scaleX: 1.6, y: 1.6)
         spinner.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         spinner.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
     }
     
     func start() {
+        self.isHidden = false
         spinner.startAnimating()
     }
     
     func stop() {
         spinner.stopAnimating()
+        self.isHidden = true
     }
 }

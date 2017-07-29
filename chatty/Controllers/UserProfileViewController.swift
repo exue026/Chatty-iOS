@@ -32,8 +32,6 @@ class UserProfileViewController: UIViewController {
         return imageView
     }()
     
-    private let spinner = LoadingSpinner(frame: CGRect.zero)
-    
     // MARK: Lifecycle
 
     override func viewDidLoad() {
