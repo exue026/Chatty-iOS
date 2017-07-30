@@ -18,6 +18,8 @@
 		A166DF481F11E9440014C0A5 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A166DF471F11E9440014C0A5 /* UIColor.swift */; };
 		A166DF4A1F129A1E0014C0A5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A166DF491F129A1E0014C0A5 /* Constants.swift */; };
 		A166DF4D1F129FC10014C0A5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A166DF4C1F129FC10014C0A5 /* LaunchScreen.storyboard */; };
+		A1A20A641F2E33DE00DA03E1 /* ProfileSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A20A631F2E33DE00DA03E1 /* ProfileSettingsController.swift */; };
+		A1A20A6A1F2E3DAA00DA03E1 /* FeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A20A691F2E3DAA00DA03E1 /* FeedController.swift */; };
 		A1B374661F186474009866D8 /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B374651F186474009866D8 /* FirebaseService.swift */; };
 		A1B374691F186513009866D8 /* chattyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BD7B391F117A5700E217FC /* chattyTests.swift */; };
 		A1BD7B221F117A5600E217FC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BD7B211F117A5600E217FC /* AppDelegate.swift */; };
@@ -52,6 +54,8 @@
 		A166DF471F11E9440014C0A5 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		A166DF491F129A1E0014C0A5 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		A166DF4C1F129FC10014C0A5 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		A1A20A631F2E33DE00DA03E1 /* ProfileSettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsController.swift; sourceTree = "<group>"; };
+		A1A20A691F2E3DAA00DA03E1 /* FeedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedController.swift; sourceTree = "<group>"; };
 		A1B374651F186474009866D8 /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
 		A1BD7B1E1F117A5600E217FC /* chatty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = chatty.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1BD7B211F117A5600E217FC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -103,6 +107,8 @@
 				A1BD7B231F117A5600E217FC /* LoginController.swift */,
 				A1652AE51F1B19AF00140549 /* MainTabBarController.swift */,
 				A16658E61F1DBF6A00C98A33 /* UserProfileViewController.swift */,
+				A1A20A631F2E33DE00DA03E1 /* ProfileSettingsController.swift */,
+				A1A20A691F2E3DAA00DA03E1 /* FeedController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -415,12 +421,14 @@
 				A1B374661F186474009866D8 /* FirebaseService.swift in Sources */,
 				A1BD7B221F117A5600E217FC /* AppDelegate.swift in Sources */,
 				A1652AE61F1B19AF00140549 /* MainTabBarController.swift in Sources */,
+				A1A20A641F2E33DE00DA03E1 /* ProfileSettingsController.swift in Sources */,
 				A166DF461F11E47B0014C0A5 /* String.swift in Sources */,
 				A1BD7B2A1F117A5600E217FC /* chatty.xcdatamodeld in Sources */,
 				A1FF8D7F1F2A75FE008DC719 /* LoadingSpinner.swift in Sources */,
 				A166DF481F11E9440014C0A5 /* UIColor.swift in Sources */,
 				A1652AE41F1AFF3E00140549 /* Error.swift in Sources */,
 				A166DF4A1F129A1E0014C0A5 /* Constants.swift in Sources */,
+				A1A20A6A1F2E3DAA00DA03E1 /* FeedController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

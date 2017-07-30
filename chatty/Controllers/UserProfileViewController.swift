@@ -32,6 +32,13 @@ class UserProfileViewController: UIViewController {
         return imageView
     }()
     
+    private let infoView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(theme: .bluegrey)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     // MARK: Lifecycle
 
     override func viewDidLoad() {
@@ -39,29 +46,24 @@ class UserProfileViewController: UIViewController {
         print(className + " : " + "didLoad")
         view.backgroundColor = UIColor(theme: .purpleblue)
         
-        self.navigationItem.title = "PROFILE".localized()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "SETTINGS".localized(), style: .plain, target: self, action: #selector(handleLogout))
+        navigationItem.title = "PROFILE".localized()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "SETTINGS".localized(), style: .plain, target: self, action: #selector(segueToProfileSettings))
         
         view.addSubview(coverPhoto)
+        view.insertSubview(infoView, belowSubview: coverPhoto)
+        
         setupCoverPhoto()
+        setupInfoView()
     }
     
     deinit {
         print(className + " : " + "deinitializing")
     }
     
-    // MARK: Logout button target
-    
-    @objc private func handleLogout() {
-        if FirebaseService.shared().logoutCurrentUser() {
-            segueToLoginController()
-        }
-    }
-    
     // MARK: Navigation
     
-    private func segueToLoginController() {
-        present(LoginController(), animated: true, completion: nil)
+    @objc private func segueToProfileSettings() {
+        navigationController?.pushViewController(ProfileSettingsController(), animated: true)
     }
     
     // MARK: Setup views
@@ -81,6 +83,13 @@ class UserProfileViewController: UIViewController {
         profilePic.widthAnchor.constraint(equalToConstant: 100).isActive = true
         profilePic.heightAnchor.constraint(equalToConstant: 100).isActive = true
         profilePic.centerXAnchor.constraint(equalTo: coverPhoto.centerXAnchor).isActive = true
-        profilePic.topAnchor.constraint(equalTo: coverPhoto.topAnchor, constant: 170).isActive = true
+        profilePic.topAnchor.constraint(equalTo: coverPhoto.topAnchor, constant: 160).isActive = true
+    }
+    
+    private func setupInfoView() {
+        infoView.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        infoView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        infoView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        infoView.topAnchor.constraint(equalTo: coverPhoto.bottomAnchor, constant: 65).isActive = true
     }
 }

@@ -23,5 +23,9 @@
 "INVALID_DATA_FORMAT" = "The retrieved data is in an invalid format.";
 "PROFILE" = "Profile";
 "SETTINGS" = "Settings";
+"PROFILE_SETTINGS" = "Profile Settings";
+"SAVE_CHANGES" = "Save changes";
+"NEWSFEED" = "Newsfeed";
+"FEED" = "Feed";
 
 

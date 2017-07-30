@@ -21,10 +21,13 @@ class MainTabBarController: UITabBarController {
         print(className + " : " + "didLoad")
         view.backgroundColor = UIColor.white
         
+        let newsFeedVC = FeedController(collectionViewLayout: UICollectionViewFlowLayout())
+        newsFeedVC.tabBarItem = UITabBarItem(title: "FEED".localized(), image: UIImage(named: "tab_bar_feed"), tag: 0)
+ 
         let userProfileVC = UserProfileViewController()
-        userProfileVC.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.contacts, tag: 0)
+        userProfileVC.tabBarItem = UITabBarItem(title: "PROFILE".localized(), image: UIImage(named: "tab_bar_profile"), tag: 1)
         
-        viewControllers = [UINavigationController(rootViewController: userProfileVC)]
+        viewControllers = [UINavigationController(rootViewController: newsFeedVC), UINavigationController(rootViewController: userProfileVC)]
     }
     
     override func viewDidAppear(_ animated: Bool) {
