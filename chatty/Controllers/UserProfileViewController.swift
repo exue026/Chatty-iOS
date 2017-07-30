@@ -40,7 +40,7 @@ class UserProfileViewController: UIViewController {
         view.backgroundColor = UIColor(theme: .purpleblue)
         
         self.navigationItem.title = "PROFILE".localized()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "LOGOUT".localized(), style: .plain, target: self, action: #selector(handleLogout))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "SETTINGS".localized(), style: .plain, target: self, action: #selector(handleLogout))
         
         view.addSubview(coverPhoto)
         setupCoverPhoto()

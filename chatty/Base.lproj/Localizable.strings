@@ -22,5 +22,6 @@
 "UNKNOWN_ERROR" = "An unknown error occured.";
 "INVALID_DATA_FORMAT" = "The retrieved data is in an invalid format.";
 "PROFILE" = "Profile";
+"SETTINGS" = "Settings";
 
 
