@@ -8,6 +8,11 @@
 
 import UIKit
 
+enum MainTabBarManagedControllers : Int {
+    case newsFeedVC = 0
+    case userProfileVC = 1
+}
+
 class MainTabBarController: UITabBarController {
     
     // MARK: Properties
@@ -22,10 +27,10 @@ class MainTabBarController: UITabBarController {
         view.backgroundColor = UIColor.white
         
         let newsFeedVC = FeedController(collectionViewLayout: UICollectionViewFlowLayout())
-        newsFeedVC.tabBarItem = UITabBarItem(title: "FEED".localized(), image: UIImage(named: "tab_bar_feed"), tag: 0)
+        newsFeedVC.tabBarItem = UITabBarItem(title: "FEED".localized(), image: UIImage(named: "tab_bar_feed"), tag: MainTabBarManagedControllers.newsFeedVC.rawValue)
  
         let userProfileVC = UserProfileViewController()
-        userProfileVC.tabBarItem = UITabBarItem(title: "PROFILE".localized(), image: UIImage(named: "tab_bar_profile"), tag: 1)
+        userProfileVC.tabBarItem = UITabBarItem(title: "PROFILE".localized(), image: UIImage(named: "tab_bar_profile"), tag: MainTabBarManagedControllers.userProfileVC.rawValue)
         
         viewControllers = [UINavigationController(rootViewController: newsFeedVC), UINavigationController(rootViewController: userProfileVC)]
     }
