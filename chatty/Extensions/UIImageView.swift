@@ -9,6 +9,13 @@
 import UIKit
 
 extension UIImageView {
+    
+    convenience init(imageName: String) {
+        self.init(image: UIImage(named: imageName))
+        self.contentMode = .scaleAspectFill
+        self.clipsToBounds = true
+    }
+    
     func makeRounded() {
         self.clipsToBounds = true
         self.layer.cornerRadius = self.frame.height / 2

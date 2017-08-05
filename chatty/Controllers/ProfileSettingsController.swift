@@ -36,7 +36,7 @@ class ProfileSettingsController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print(className + " : didLoad")
-        view.backgroundColor = UIColor.gray
+        view.backgroundColor = UIColor(theme: .purpleblue)
         
         navigationItem.title = "PROFILE_SETTINGS".localized()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "LOGOUT".localized(), style: .plain, target: self, action: #selector(segueToLoginController))
@@ -80,6 +80,8 @@ class ProfileSettingsController: UIViewController {
     @objc private func handleLogout() {
         if FirebaseService.shared().logoutCurrentUser() {
             segueToLoginController()
+            navigationController?.popToRootViewController(animated: true)
+            tabBarController?.selectedIndex = MainTabBarManagedControllers.newsFeedVC.rawValue
         }
     }
     
@@ -87,18 +89,16 @@ class ProfileSettingsController: UIViewController {
     
     @objc private func segueToLoginController() {
         present(LoginController(), animated: true, completion: nil)
-        navigationController?.popToRootViewController(animated: true)
-        tabBarController?.selectedIndex = MainTabBarManagedControllers.newsFeedVC.rawValue
     }
     
     @objc private func segueToProfileEdit(withSender button: UIButton) {
         let profileEditVC = ProfileEditController()
         profileEditVC.getData(data: button.titleLabel!.text!)
-        navigationController?.pushViewController(profileEditVC, animated: true)
+        present(profileEditVC, animated: true, completion: nil)
     }
     
     // MARK: Setup views
-    
+
     private func setupButtons() {
         changePicButton?.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         changePicButton?.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true

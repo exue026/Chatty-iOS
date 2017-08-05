@@ -24,6 +24,7 @@ class FeedController: UICollectionViewController {
         collectionView!.backgroundColor = UIColor.white
         
         navigationItem.title = "NEWSFEED".localized()
+        navigationController?.navigationBar.isTranslucent = false
         
         collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
     }

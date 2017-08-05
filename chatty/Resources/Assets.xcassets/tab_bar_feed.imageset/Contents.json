@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "earth-america-7.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "tab_bar_feed.png",
       "scale" : "2x"
     },
     {

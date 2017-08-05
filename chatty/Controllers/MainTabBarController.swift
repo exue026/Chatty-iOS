@@ -26,9 +26,11 @@ class MainTabBarController: UITabBarController {
         print(className + " : " + "didLoad")
         view.backgroundColor = UIColor.white
         
+        tabBar.tintColor = UIColor(theme: .purpleblue)
+        
         let newsFeedVC = FeedController(collectionViewLayout: UICollectionViewFlowLayout())
         newsFeedVC.tabBarItem = UITabBarItem(title: "FEED".localized(), image: UIImage(named: "tab_bar_feed"), tag: MainTabBarManagedControllers.newsFeedVC.rawValue)
- 
+        
         let userProfileVC = UserProfileViewController()
         userProfileVC.tabBarItem = UITabBarItem(title: "PROFILE".localized(), image: UIImage(named: "tab_bar_profile"), tag: MainTabBarManagedControllers.userProfileVC.rawValue)
         
@@ -37,7 +39,9 @@ class MainTabBarController: UITabBarController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        print("HELLOOOOOO")
         if !FirebaseService.shared().currentUserExists() {
+            print("AYYYY")
             self.segueToLoginController()
         }
     }
