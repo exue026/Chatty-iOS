@@ -11,6 +11,7 @@
 		A12AF1F21F16EA8D00ECD541 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12AF1F11F16EA8D00ECD541 /* APIService.swift */; };
 		A14344A91F36599B00ECC15C /* ProfilePager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14344A81F36599B00ECC15C /* ProfilePager.swift */; };
 		A15E794D1F36BDD000CAEED1 /* MyUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15E794C1F36BDD000CAEED1 /* MyUser.swift */; };
+		A14344AD1F368BE800ECC15C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A14344AC1F368BE800ECC15C /* GoogleService-Info.plist */; };
 		A1652AE41F1AFF3E00140549 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1652AE31F1AFF3E00140549 /* Error.swift */; };
 		A1652AE61F1B19AF00140549 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1652AE51F1B19AF00140549 /* MainTabBarController.swift */; };
 		A16658E71F1DBF6A00C98A33 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16658E61F1DBF6A00C98A33 /* UserProfileViewController.swift */; };
@@ -54,6 +55,7 @@
 		A12AF1F11F16EA8D00ECD541 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		A14344A81F36599B00ECC15C /* ProfilePager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePager.swift; sourceTree = "<group>"; };
 		A15E794C1F36BDD000CAEED1 /* MyUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyUser.swift; sourceTree = "<group>"; };
+		A14344AC1F368BE800ECC15C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Desktop/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A1652AE31F1AFF3E00140549 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		A1652AE51F1B19AF00140549 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		A16658E61F1DBF6A00C98A33 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 				A166DF4C1F129FC10014C0A5 /* LaunchScreen.storyboard */,
 				A18F4F7E1F315269009534D0 /* GoogleService-Info.plist */,
 				A1BD7B281F117A5600E217FC /* chatty.xcdatamodeld */,
+				A14344AC1F368BE800ECC15C /* GoogleService-Info.plist */,
 			);
 			path = Admin;
 			sourceTree = "<group>";
