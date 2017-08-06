@@ -80,7 +80,7 @@ class ProfilePagerCell : UICollectionViewCell {
     }
     
     private func setupViews() {
-        self.backgroundColor = UIColor.blue
+        self.backgroundColor = UIColor(theme: .thistle)
     }
     
 }

@@ -10,6 +10,7 @@
 		31F475EF517D2CFA329CE27C /* Pods_chatty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6BE708FC242393D413A7D7E /* Pods_chatty.framework */; };
 		A12AF1F21F16EA8D00ECD541 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12AF1F11F16EA8D00ECD541 /* APIService.swift */; };
 		A14344A91F36599B00ECC15C /* ProfilePager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14344A81F36599B00ECC15C /* ProfilePager.swift */; };
+		A15E794D1F36BDD000CAEED1 /* MyUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15E794C1F36BDD000CAEED1 /* MyUser.swift */; };
 		A1652AE41F1AFF3E00140549 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1652AE31F1AFF3E00140549 /* Error.swift */; };
 		A1652AE61F1B19AF00140549 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1652AE51F1B19AF00140549 /* MainTabBarController.swift */; };
 		A16658E71F1DBF6A00C98A33 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16658E61F1DBF6A00C98A33 /* UserProfileViewController.swift */; };
@@ -52,6 +53,7 @@
 		64ED0C219B918AB667B73FBF /* Pods-chatty.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chatty.debug.xcconfig"; path = "Pods/Target Support Files/Pods-chatty/Pods-chatty.debug.xcconfig"; sourceTree = "<group>"; };
 		A12AF1F11F16EA8D00ECD541 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		A14344A81F36599B00ECC15C /* ProfilePager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePager.swift; sourceTree = "<group>"; };
+		A15E794C1F36BDD000CAEED1 /* MyUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyUser.swift; sourceTree = "<group>"; };
 		A1652AE31F1AFF3E00140549 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		A1652AE51F1B19AF00140549 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		A16658E61F1DBF6A00C98A33 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
@@ -160,8 +162,9 @@
 			isa = PBXGroup;
 			children = (
 				A18515841F33D025002BBE26 /* User.swift */,
-				A18515861F33E660002BBE26 /* Post.swift */,
+				A15E794C1F36BDD000CAEED1 /* MyUser.swift */,
 				A18515881F33E695002BBE26 /* Comment.swift */,
+				A18515861F33E660002BBE26 /* Post.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -445,6 +448,7 @@
 				A14344A91F36599B00ECC15C /* ProfilePager.swift in Sources */,
 				A18F4F831F318436009534D0 /* ProfileEditController.swift in Sources */,
 				A12AF1F21F16EA8D00ECD541 /* APIService.swift in Sources */,
+				A15E794D1F36BDD000CAEED1 /* MyUser.swift in Sources */,
 				A16658E71F1DBF6A00C98A33 /* UserProfileViewController.swift in Sources */,
 				A1B374661F186474009866D8 /* FirebaseService.swift in Sources */,
 				A1BD7B221F117A5600E217FC /* AppDelegate.swift in Sources */,

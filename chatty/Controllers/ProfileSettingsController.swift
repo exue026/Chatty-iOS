@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class ProfileSettingsController: UIViewController {
     
@@ -39,7 +40,7 @@ class ProfileSettingsController: UIViewController {
         view.backgroundColor = UIColor(theme: .purpleblue)
         
         navigationItem.title = "PROFILE_SETTINGS".localized()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "LOGOUT".localized(), style: .plain, target: self, action: #selector(segueToLoginController))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "LOGOUT".localized(), style: .plain, target: self, action: #selector(handleLogout))
         
         createButtons()
         guard let changePicButton = changePicButton, let changeNameButton = changeNameButton,
@@ -79,9 +80,11 @@ class ProfileSettingsController: UIViewController {
     
     @objc private func handleLogout() {
         if FirebaseService.shared().logoutCurrentUser() {
+            DispatchQueue.main.async {
+                self.navigationController?.popToRootViewController(animated: true)
+                self.tabBarController?.selectedIndex = MainTabBarManagedControllers.newsFeedVC.rawValue
+            }
             segueToLoginController()
-            navigationController?.popToRootViewController(animated: true)
-            tabBarController?.selectedIndex = MainTabBarManagedControllers.newsFeedVC.rawValue
         }
     }
     

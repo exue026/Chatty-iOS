@@ -12,21 +12,23 @@ import UIKit
 class Post : Comment {
     
     // MARK: Properties
-    
+    override var className: String {
+        get { return String(typeOfClass: Post.self) }
+    }
     var title: String
     var comments: [Comment]
     
     // MARK: Lifecycle
     
     init(postedBy user: User, text: String, date: Date, title: String, comments: [Comment]) {
-        print("Post : Initializing")
         self.title = title
         self.comments = comments
         super.init(postedBy: user, text: text, date: date)
+        print(className + " : Initializing")
     }
     
     deinit {
-        print("Post : Deinitializing")
+        print(className + " : Deinitializing")
     }
     
     

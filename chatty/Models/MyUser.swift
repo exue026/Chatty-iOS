@@ -1,0 +1,35 @@
+//
+//  MyUser.swift
+//  chatty
+//
+//  Created by Ethan Xue on 2017-08-05.
+//  Copyright © 2017 xTech. All rights reserved.
+//
+
+import Foundation
+import UIKit
+
+class MyUser : User {
+    
+    // MARK: Properties
+    
+    override var className: String {
+        get { return String(typeOfClass: MyUser.self) }
+    }
+    private var uid: String
+    private var email: String
+    
+    // MARK: Lifecycle
+    
+    init(uid: String, username: String, email: String, firstName: String, lastName: String, description: String? = nil, pfp: UIImage? = nil, coverPhoto: UIImage? = nil) {
+        self.uid = uid
+        self.email = email
+        super.init(username: username, firstName: firstName, lastName: lastName, description: description, pfp: pfp, coverPhoto: coverPhoto)
+        print(className + " : Initializing")
+    }
+    
+    deinit {
+        print(className + " : Deinitializing")
+    }
+    
+}

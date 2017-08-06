@@ -12,7 +12,9 @@ import UIKit
 class Comment {
     
     // MARK: Properties
-    
+    var className : String {
+        get { return String(typeOfClass: Comment.self) }
+    }
     var user: User
     var text: String
     var date: Date

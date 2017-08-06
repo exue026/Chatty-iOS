@@ -39,9 +39,7 @@ class MainTabBarController: UITabBarController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        print("HELLOOOOOO")
         if !FirebaseService.shared().currentUserExists() {
-            print("AYYYY")
             self.segueToLoginController()
         }
     }

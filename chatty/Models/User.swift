@@ -13,24 +13,20 @@ class User {
     
     // MARK: Properties
     
-    let className = String(typeOfClass: User.self)
-    
-    private var uid: String
-    private var username: String
-    private var email: String
-    private var firstName: String
-    private var lastName: String
-    private var description: String?
-    private var pfp: UIImage?
-    private var coverPhoto: UIImage?
+    var className: String {
+        get { return String(typeOfClass: User.self) }
+    }
+    let username: String
+    var firstName: String
+    var lastName: String
+    var description: String?
+    var pfp: UIImage?
+    var coverPhoto: UIImage?
     
     // MARK: Lifecycle
     
-    init(uid: String, username: String, email: String, firstName: String, lastName: String, description: String? = nil, pfp: UIImage? = nil, coverPhoto: UIImage? = nil) {
-        print(className + " : Initializing")
-        self.uid = uid
+    init(username: String, firstName: String, lastName: String, description: String? = nil, pfp: UIImage? = nil, coverPhoto: UIImage? = nil) {
         self.username = username
-        self.email = email
         self.firstName = firstName
         self.lastName = lastName
         self.description = description
