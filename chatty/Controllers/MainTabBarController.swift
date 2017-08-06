@@ -8,6 +8,11 @@
 
 import UIKit
 
+enum MainTabBarManagedControllers : Int {
+    case newsFeedVC = 0
+    case userProfileVC = 1
+}
+
 class MainTabBarController: UITabBarController {
     
     // MARK: Properties
@@ -21,10 +26,15 @@ class MainTabBarController: UITabBarController {
         print(className + " : " + "didLoad")
         view.backgroundColor = UIColor.white
         
-        let userProfileVC = UserProfileViewController()
-        userProfileVC.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.contacts, tag: 0)
+        tabBar.tintColor = UIColor(theme: .purpleblue)
         
-        viewControllers = [UINavigationController(rootViewController: userProfileVC)]
+        let newsFeedVC = FeedController(collectionViewLayout: UICollectionViewFlowLayout())
+        newsFeedVC.tabBarItem = UITabBarItem(title: "FEED".localized(), image: UIImage(named: "tab_bar_feed"), tag: MainTabBarManagedControllers.newsFeedVC.rawValue)
+        
+        let userProfileVC = UserProfileViewController()
+        userProfileVC.tabBarItem = UITabBarItem(title: "PROFILE".localized(), image: UIImage(named: "tab_bar_profile"), tag: MainTabBarManagedControllers.userProfileVC.rawValue)
+        
+        viewControllers = [UINavigationController(rootViewController: newsFeedVC), UINavigationController(rootViewController: userProfileVC)]
     }
     
     override func viewDidAppear(_ animated: Bool) {

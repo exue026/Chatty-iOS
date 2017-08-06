@@ -23,5 +23,20 @@
 "INVALID_DATA_FORMAT" = "The retrieved data is in an invalid format.";
 "PROFILE" = "Profile";
 "SETTINGS" = "Settings";
-
-
+"PROFILE_SETTINGS" = "Profile Settings";
+"SAVE_CHANGES" = "Save changes";
+"NEWSFEED" = "Newsfeed";
+"FEED" = "Feed";
+"CHANGE_PFP" = "Change profile photo";
+"CHANGE_COVER_PHOTO" = "Change cover photo";
+"EDIT_PF_DESCRIPTION" = "Edit profile description";
+"EDIT_NAME" = "Edit display name";
+"SAVE" = "Save";
+"UNSAVED_CHANGES" = "Unsaved changes";
+"UNSAVED_CHANGES_INFO" = "Are you sure you want to leave this page? You will lose all of your changes.";
+"CANCEL" = "Cancel";
+"BACK" = "Back";
+"DONE" = "Done";
+"SAVED" = "Saved";
+"SAVED_INFO" = "Your changes have been successfully saved";
+"VIEW_MY_POSTS" = "View my posts";

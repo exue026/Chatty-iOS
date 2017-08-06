@@ -17,4 +17,9 @@ struct FirebaseRes {
     static let main_dir = "Users"
 }
 
+struct FontRes {
+    static let Avenir = "Avenir-Light"
+    static let SanFran = "SanFranciscoDisplay-Light"
+}
+
 
