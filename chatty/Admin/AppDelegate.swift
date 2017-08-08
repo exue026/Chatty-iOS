@@ -21,9 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         window?.rootViewController = MainTabBarController()
-        UINavigationBar.appearance().barTintColor = UIColor(theme: .thistle)
-        UINavigationBar.appearance().tintColor = UIColor(theme: .purpleblue)
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue : UIColor(theme: .purpleblue)]
+        UINavigationBar.appearance().barTintColor = UIColor(theme: .purpleblue)
+        UINavigationBar.appearance().tintColor = UIColor.white
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue : UIColor.white ]
         // get rid of black bar underneath navigation bar
         UINavigationBar.appearance().shadowImage = UIImage()
         UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)

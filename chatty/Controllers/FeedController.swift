@@ -24,6 +24,7 @@ class FeedController: UICollectionViewController {
         collectionView!.backgroundColor = UIColor.white
         
         navigationItem.title = "NEWSFEED".localized()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "POST".localized(), style: .plain, target: self, action: #selector(handlePost))
         navigationController?.navigationBar.isTranslucent = false
         
         collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
@@ -31,6 +32,12 @@ class FeedController: UICollectionViewController {
     
     deinit {
         print(className + " : deinitializing")
+    }
+    
+    // MARK: Post button target
+    
+    @objc private func handlePost() {
+        
     }
     
     // MARK: UICollectionViewDataSource

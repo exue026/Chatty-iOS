@@ -37,7 +37,7 @@ class ProfileSettingsController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print(className + " : didLoad")
-        view.backgroundColor = UIColor(theme: .purpleblue)
+        view.backgroundColor = UIColor(theme: .bluegrey)
         
         navigationItem.title = "PROFILE_SETTINGS".localized()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "LOGOUT".localized(), style: .plain, target: self, action: #selector(handleLogout))
