@@ -9,8 +9,9 @@
 import UIKit
 
 enum MainTabBarManagedControllers : Int {
-    case newsFeedVC = 0
-    case userProfileVC = 1
+    case newsFeedVC
+    case userProfileVC
+    case contactsVC
 }
 
 class MainTabBarController: UITabBarController {
@@ -31,10 +32,13 @@ class MainTabBarController: UITabBarController {
         let newsFeedVC = FeedController(collectionViewLayout: UICollectionViewFlowLayout())
         newsFeedVC.tabBarItem = UITabBarItem(title: "FEED".localized(), image: UIImage(named: "tab_bar_feed"), tag: MainTabBarManagedControllers.newsFeedVC.rawValue)
         
-        let userProfileVC = UserProfileViewController()
+        let userProfileVC = UserProfileController(collectionViewLayout: UICollectionViewFlowLayout())
         userProfileVC.tabBarItem = UITabBarItem(title: "PROFILE".localized(), image: UIImage(named: "tab_bar_profile"), tag: MainTabBarManagedControllers.userProfileVC.rawValue)
         
-        viewControllers = [UINavigationController(rootViewController: newsFeedVC), UINavigationController(rootViewController: userProfileVC)]
+        let contactsVC = ContactsController(collectionViewLayout: UICollectionViewFlowLayout())
+        contactsVC.tabBarItem = UITabBarItem(title: "CONTACTS".localized(), image: UIImage(named: "tab_bar_contacts"), tag: MainTabBarManagedControllers.contactsVC.rawValue)
+        
+        viewControllers = [UINavigationController(rootViewController: newsFeedVC), UINavigationController(rootViewController: userProfileVC), UINavigationController(rootViewController: contactsVC)]
     }
     
     override func viewDidAppear(_ animated: Bool) {

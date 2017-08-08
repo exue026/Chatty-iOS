@@ -1,18 +1,16 @@
 //
-//  UserProfileControllerViewController.swift
+//  ProfileCell.swift
 //  chatty
 //
-//  Created by Ethan Xue on 2017-07-18.
+//  Created by Ethan Xue on 2017-08-07.
 //  Copyright © 2017 xTech. All rights reserved.
 //
 
 import UIKit
 
-class UserProfileViewController: UIViewController {
+class ProfileCell: UICollectionViewCell {
     
-    // MARK: Properties
-    
-    let className = String(typeOfClass: UserProfileViewController.self)
+    static let cellId = "ProfileCell"
     
     private let coverPhoto: UIImageView = {
         let imageView = UIImageView(imageName: "chatty_launchscreen")
@@ -57,36 +55,18 @@ class UserProfileViewController: UIViewController {
     
     private let separatorView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(theme: .thistle)
+        view.backgroundColor = UIColor(theme: .bluegrey)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private let profilePager: ProfilePager = {
-        let pager = ProfilePager()
-        pager.translatesAutoresizingMaskIntoConstraints = false
-        return pager
-    }()
-    
-    // MARK: Lifecycle
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        print(className + " : " + "didLoad")
-        view.backgroundColor = UIColor.white
-        self.edgesForExtendedLayout = []
-        
-        navigationItem.title = "PROFILE".localized()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "SETTINGS".localized(), style: .plain, target: self, action: #selector(segueToProfileSettings))
-        navigationController?.navigationBar.isTranslucent = false
-        
-        view.addSubview(profilePager)
-        view.addSubview(coverPhoto)
-        view.addSubview(profilePic)
-        view.addSubview(nameLabel)
-        view.addSubview(descriptionLabel)
-        view.addSubview(separatorView)
-        setupProfilePager()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        addSubview(coverPhoto)
+        addSubview(profilePic)
+        addSubview(nameLabel)
+        addSubview(descriptionLabel)
+        addSubview(separatorView)
         setupCoverPhoto()
         setupProfilePic()
         setupNameLabel()
@@ -94,30 +74,15 @@ class UserProfileViewController: UIViewController {
         setupSeparatorView()
     }
     
-    deinit {
-        print(className + " : " + "deinitializing")
-    }
-    
-    // MARK: Navigation
-    
-    @objc private func segueToProfileSettings() {
-        navigationController?.pushViewController(ProfileSettingsController(), animated: true)
-    }
-    
-    // MARK: Setup views
-    
-    private func setupProfilePager() {
-        profilePager.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        profilePager.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        profilePager.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        profilePager.heightAnchor.constraint(equalToConstant: 50).isActive = true
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     private func setupCoverPhoto() {
-        coverPhoto.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        coverPhoto.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        coverPhoto.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        coverPhoto.widthAnchor.constraint(equalTo:  self.widthAnchor).isActive = true
         coverPhoto.heightAnchor.constraint(equalToConstant: 150).isActive = true
-        coverPhoto.topAnchor.constraint(equalTo: profilePager.bottomAnchor).isActive = true
+        coverPhoto.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
     }
     
     private func setupProfilePic() {
@@ -129,22 +94,22 @@ class UserProfileViewController: UIViewController {
     
     private func setupNameLabel() {
         nameLabel.topAnchor.constraint(equalTo: profilePic.bottomAnchor, constant: 40).isActive = true
-        nameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        nameLabel.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        nameLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        nameLabel.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
         nameLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
     }
     
     private func setupDescriptionLabel() {
         descriptionLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10).isActive = true
-        descriptionLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        descriptionLabel.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -48).isActive = true
+        descriptionLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        descriptionLabel.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -48).isActive = true
         descriptionLabel.heightAnchor.constraint(equalToConstant: 90).isActive = true
     }
     
     private func setupSeparatorView() {
         separatorView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 20).isActive = true
-        separatorView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        separatorView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        separatorView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        separatorView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
         separatorView.heightAnchor.constraint(equalToConstant: 3).isActive = true
     }
 }
