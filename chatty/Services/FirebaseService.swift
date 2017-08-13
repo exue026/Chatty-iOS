@@ -96,6 +96,18 @@ class FirebaseService {
         return FIRAuth.auth()?.currentUser != nil ? true : false
     }
     
+    func getIdToken() -> Promise<String> {
+        return Promise { resolve, reject in
+            guard let user = FIRAuth.auth()?.currentUser else {
+                return reject(CustomFirebaseError.unknownError)
+            }
+            user.getTokenForcingRefresh(true) { (idToken: String?, error: Error?) in
+                guard let idToken = idToken, error == nil else { return reject(error!) }
+                return resolve(idToken)
+            }
+        }
+    }
+    
     // MARK: Helper Functions
     
     static func shared() -> FirebaseService {

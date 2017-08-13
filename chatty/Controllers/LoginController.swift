@@ -196,7 +196,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
         firstly {
             FirebaseService.shared().signInUser(email: email, password: password)
         }.then { (idToken: String) -> Promise<User> in
-            APIService.shared().getUser(for: idToken)
+            APIService.shared().getUser(forIdToken: idToken)
         }.then { (user: User) -> Void in
             UserManagerService.shared().myUser = user
             UserManagerService.shared().updatedInfo = true

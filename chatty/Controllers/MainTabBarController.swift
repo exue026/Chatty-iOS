@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PromiseKit
 
 enum MainTabBarManagedControllers: Int {
     case newsFeedVC
@@ -24,7 +25,19 @@ class MainTabBarController: UITabBarController {
         view.backgroundColor = UIColor.white
         tabBar.tintColor = UIColor(theme: .purpleblue)
         
-        setupManagedVCs()
+        if FirebaseService.shared().currentUserExists(), UserManagerService.shared().myUser == nil {
+            firstly {
+                FirebaseService.shared().getIdToken()
+            }.then { (idToken: String) -> Promise<User> in
+                APIService.shared().getUser(forIdToken: idToken)
+            }.then { (user: User) -> Void in
+                UserManagerService.shared().myUser = user
+            }.catch { error in
+                print(error)
+            }.always {
+                self.setupManagedVCs()
+            }
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

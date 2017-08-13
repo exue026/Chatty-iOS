@@ -30,15 +30,15 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
         setupProfilePager()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         if UserManagerService.shared().updatedInfo {
             UserManagerService.shared().updatedInfo = false
             let profilePageIndexPath = IndexPath(item: 0, section: 0)
             let cell = collectionView?.cellForItem(at: profilePageIndexPath) as? ProfileCell
             cell?.nameLabel.text = UserManagerService.shared().myUser?.displayName
             cell?.descriptionLabel.text = UserManagerService.shared().myUser?.descript
-            collectionView?.reloadData()
+            collectionView!.reloadData()
         }
     }
     

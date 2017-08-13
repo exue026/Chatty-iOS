@@ -39,7 +39,7 @@ class APIService {
     
     // MARK: HTTP Requests
     
-    func getUser(for idToken: String) -> Promise<User> {
+    func getUser(forIdToken idToken: String) -> Promise<User> {
         return firstly {
             sendRequest(endpoint: "/users/idTokens/\(idToken)", type: .GET)
         }.then { (data: Data?) -> Promise<User> in

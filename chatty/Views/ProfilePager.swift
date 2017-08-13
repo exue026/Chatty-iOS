@@ -109,14 +109,14 @@ class ProfilePagerCell : UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = label.font.withSize(14.0)
-        label.textColor = UIColor(theme: .dark)
+        label.textColor = UIColor.lightGray
         label.textAlignment = .center
         return label
     }()
     
     override var isSelected: Bool {
         didSet {
-            pageName.textColor = isSelected ? UIColor.white : UIColor(theme: .dark)
+            pageName.textColor = isSelected ? UIColor.white : UIColor.lightGray
         }
     }
     
@@ -124,7 +124,7 @@ class ProfilePagerCell : UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor(theme: .bluegrey)
+        self.backgroundColor = UIColor(theme: .purpleblue)
         addSubview(pageName)
         setupPageName()
     }
