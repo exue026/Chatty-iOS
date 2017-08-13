@@ -6,35 +6,36 @@
 //  Copyright © 2017 xTech. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
-class User {
+struct User {
     
     // MARK: Properties
     
-    var className: String {
-        get { return String(typeOfClass: User.self) }
-    }
-    let username: String
-    var firstName: String
-    var lastName: String
-    var description: String?
+    let uid: String?
+    let username: String?
+    let id: Int?
+    var displayName: String?
+    var posts: [Post]?
+    var descript: String?
     var pfp: UIImage?
     var coverPhoto: UIImage?
-    
-    // MARK: Lifecycle
-    
-    init(username: String, firstName: String, lastName: String, description: String? = nil, pfp: UIImage? = nil, coverPhoto: UIImage? = nil) {
-        self.username = username
-        self.firstName = firstName
-        self.lastName = lastName
-        self.description = description
-        self.pfp = pfp
-        self.coverPhoto = coverPhoto
+}
+
+extension User: Decodable {
+    enum UserKeys: String, CodingKey {
+        case id, name, uid, username, description, posts
     }
     
-    deinit {
-        print(className + " : Deinitializing")
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: UserKeys.self)
+        uid = try container.decodeIfPresent(String.self, forKey: .uid)
+        username = try container.decodeIfPresent(String.self, forKey: .username)
+        id = try container.decodeIfPresent(Int.self, forKey: .id)
+        displayName = try container.decodeIfPresent(String.self, forKey: .name)
+        posts = try container.decodeIfPresent([Post].self, forKey: .posts)
+        descript = try container.decodeIfPresent(String.self, forKey: .description)
     }
 }
+
+

@@ -6,30 +6,27 @@
 //  Copyright © 2017 xTech. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
-class Comment {
-    
-    // MARK: Properties
-    var className : String {
-        get { return String(typeOfClass: Comment.self) }
-    }
-    var user: User
-    var text: String
-    var date: Date
-    
-    // MARK: Lifecycle
-    
-    init(postedBy user: User, text: String, date: Date) {
-        print("Comment : Initializing")
-        self.user = user
-        self.text = text
-        self.date = date
+struct Comment {
+    let id: Int?
+    let text: String?
+    let postedOn: Date?
+    let postedByUserWithId: Int?
+    let parentPost: Post?
+}
+
+extension Comment: Decodable {
+    enum CommentKeys: String, CodingKey {
+        case id, message, post_id, user_id, created_at
     }
     
-    deinit {
-        print("Comment : Deinitializing")
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CommentKeys.self)
+        id = try container.decodeIfPresent(Int.self, forKey: .id)
+        text = try container.decodeIfPresent(String.self, forKey: .message)
+        postedOn = try container.decodeIfPresent(Date.self, forKey: .created_at)
+        postedByUserWithId = try container.decodeIfPresent(Int.self, forKey: .user_id)
+        parentPost = try container.decodeIfPresent(Post.self, forKey: .post_id)
     }
-    
 }

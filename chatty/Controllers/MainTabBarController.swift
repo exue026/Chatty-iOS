@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum MainTabBarManagedControllers : Int {
+enum MainTabBarManagedControllers: Int {
     case newsFeedVC
     case userProfileVC
     case contactsVC
@@ -16,29 +16,15 @@ enum MainTabBarManagedControllers : Int {
 
 class MainTabBarController: UITabBarController {
     
-    // MARK: Properties
-    
-    let className = String(typeOfClass: MainTabBarController.self)
-    
     // MARK: Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(className + " : " + "didLoad")
+        self.printDidLoad()
         view.backgroundColor = UIColor.white
-        
         tabBar.tintColor = UIColor(theme: .purpleblue)
         
-        let newsFeedVC = FeedController(collectionViewLayout: UICollectionViewFlowLayout())
-        newsFeedVC.tabBarItem = UITabBarItem(title: "FEED".localized(), image: UIImage(named: "tab_bar_feed"), tag: MainTabBarManagedControllers.newsFeedVC.rawValue)
-        
-        let userProfileVC = UserProfileController(collectionViewLayout: UICollectionViewFlowLayout())
-        userProfileVC.tabBarItem = UITabBarItem(title: "PROFILE".localized(), image: UIImage(named: "tab_bar_profile"), tag: MainTabBarManagedControllers.userProfileVC.rawValue)
-        
-        let contactsVC = ContactsController(collectionViewLayout: UICollectionViewFlowLayout())
-        contactsVC.tabBarItem = UITabBarItem(title: "CONTACTS".localized(), image: UIImage(named: "tab_bar_contacts"), tag: MainTabBarManagedControllers.contactsVC.rawValue)
-        
-        viewControllers = [UINavigationController(rootViewController: newsFeedVC), UINavigationController(rootViewController: userProfileVC), UINavigationController(rootViewController: contactsVC)]
+        setupManagedVCs()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -49,7 +35,22 @@ class MainTabBarController: UITabBarController {
     }
     
     deinit {
-        print(className + " : " + "deinitializing")
+        self.printDeinit()
+    }
+    
+    // Helper functions
+    
+    private func setupManagedVCs() {
+        let newsFeedVC = FeedController(collectionViewLayout: UICollectionViewFlowLayout())
+        newsFeedVC.tabBarItem = UITabBarItem(title: "FEED".localized(), image: UIImage(named: "tab_bar_feed"), tag: MainTabBarManagedControllers.newsFeedVC.rawValue)
+        
+        let userProfileVC = UserProfileController(collectionViewLayout: UICollectionViewFlowLayout())
+        userProfileVC.tabBarItem = UITabBarItem(title: "PROFILE".localized(), image: UIImage(named: "tab_bar_profile"), tag: MainTabBarManagedControllers.userProfileVC.rawValue)
+        
+        let contactsVC = ContactsController(collectionViewLayout: UICollectionViewFlowLayout())
+        contactsVC.tabBarItem = UITabBarItem(title: "CONTACTS".localized(), image: UIImage(named: "tab_bar_contacts"), tag: MainTabBarManagedControllers.contactsVC.rawValue)
+        
+        viewControllers = [UINavigationController(rootViewController: newsFeedVC), UINavigationController(rootViewController: userProfileVC), UINavigationController(rootViewController: contactsVC)]
     }
     
     // MARK: Navigation

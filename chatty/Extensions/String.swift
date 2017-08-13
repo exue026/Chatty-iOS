@@ -9,12 +9,6 @@
 import Foundation
 
 extension String {
-    
-    init(typeOfClass anyClass: AnyClass) {
-        self.init(describing: type(of: anyClass))
-        self = self.replacingOccurrences(of: ".Type", with: "")
-    }
-    
     func localized(lang: String? = nil) -> String {
         return NSLocalizedString(self, comment: "")
     }

@@ -36,7 +36,6 @@ extension UIColor {
             self.init(red: 171/255, green: 71/255, blue: 188/255, alpha: opacity)
         case .bluegrey:
             self.init(red: 84/255, green: 110/255, blue: 125/255, alpha: opacity)
-            
         case .mint:
             self.init(red: 175/255, green: 210/255, blue: 200/255, alpha: opacity)
         case .grey:

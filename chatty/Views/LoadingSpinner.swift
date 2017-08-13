@@ -12,16 +12,14 @@ class LoadingSpinner: UIView {
     
     // MARK: Properties
     
-    private let className = String(typeOfClass: LoadingSpinner.self)
     private let spinner: UIActivityIndicatorView
     
     // MARK: Lifecycle
     
     override init(frame: CGRect) {
-        print(className + " : " + "initializing")
         spinner = UIActivityIndicatorView(activityIndicatorStyle: .white)
         super.init(frame: frame)
-        
+        self.printInit()
         self.isHidden = true
         
         setupView()
@@ -34,14 +32,14 @@ class LoadingSpinner: UIView {
     }
     
     deinit {
-        print(className + " : deinitializing")
+        self.printDeinit()
     }
     
     // MARK: Setup views
     
     private func setupView() {
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.backgroundColor = UIColor.black.withAlphaComponent(0.8)
+        self.backgroundColor = UIColor.black.withAlphaComponent(0.7)
         self.layer.cornerRadius = 5
         self.layer.masksToBounds = true
         self.widthAnchor.constraint(equalToConstant: 90).isActive = true
@@ -54,6 +52,8 @@ class LoadingSpinner: UIView {
         spinner.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         spinner.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
     }
+    
+    // MARK: Public functions
     
     func start() {
         self.isHidden = false

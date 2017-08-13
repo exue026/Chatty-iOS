@@ -14,8 +14,6 @@ class LoginController: UIViewController, UITextFieldDelegate {
     
     // MARK: Properties
     
-    let className = String(typeOfClass: LoginController.self)
-    
     private let chattyLogo: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -46,9 +44,10 @@ class LoginController: UIViewController, UITextFieldDelegate {
     
     private var usernameTFHeightAnchor: NSLayoutConstraint?
     
-    private let usernameTF: UITextField = {
+    private lazy var usernameTF: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.delegate = self
         textField.backgroundColor = UIColor.white
         textField.attributedPlaceholder = NSAttributedString(string: "USERNAME".localized(), attributes: [NSAttributedStringKey.foregroundColor: UIColor(theme: .grey)])
         textField.autocapitalizationType = .none
@@ -58,9 +57,10 @@ class LoginController: UIViewController, UITextFieldDelegate {
     
     private var emailTFHeightAnchor: NSLayoutConstraint?
     
-    private let emailTF: UITextField = {
+    private lazy var emailTF: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = UIColor.white
+        textField.delegate = self
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.attributedPlaceholder = NSAttributedString(string: "EMAIL".localized(), attributes: [NSAttributedStringKey.foregroundColor: UIColor(theme: .grey)])
         textField.keyboardType = .emailAddress
@@ -71,8 +71,9 @@ class LoginController: UIViewController, UITextFieldDelegate {
     
     private var passwordTFHeightAnchor: NSLayoutConstraint?
     
-    private let passwordTF: UITextField = {
+    private lazy var passwordTF: UITextField = {
         let textField = UITextField()
+        textField.delegate = self
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.backgroundColor = UIColor.white
         textField.attributedPlaceholder = NSAttributedString(string: "PASSWORD".localized(), attributes: [NSAttributedStringKey.foregroundColor: UIColor(theme: .grey)])
@@ -117,12 +118,9 @@ class LoginController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(className + " : " + "didLoad")
-        view.backgroundColor = UIColor(theme: .purpleblue)
+        self.printDidLoad()
         
-        usernameTF.delegate = self
-        emailTF.delegate = self
-        passwordTF.delegate = self
+        view.backgroundColor = UIColor(theme: .purpleblue)
         
         view.addSubview(chattyLogo)
         view.addSubview(loginRegisterSegmentedControl)
@@ -138,7 +136,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
     }
     
     deinit {
-        print(className + " : " + "deinitializing")
+        self.printDeinit()
     }
     
     // MARK: UITextFieldDelegate
@@ -194,7 +192,14 @@ class LoginController: UIViewController, UITextFieldDelegate {
     private func handleLogin() {
         spinner.start()
         guard let email = emailTF.text, let password = passwordTF.text else { return }
-        FirebaseService.shared().signInUser(email: email, password: password).then { _ -> Void  in
+        
+        firstly {
+            FirebaseService.shared().signInUser(email: email, password: password)
+        }.then { (idToken: String) -> Promise<User> in
+            APIService.shared().getUser(for: idToken)
+        }.then { (user: User) -> Void in
+            UserManagerService.shared().myUser = user
+            UserManagerService.shared().updatedInfo = true
             self.segueToMainTabBarController()
         }.catch { error in
             let alert = UIAlertController(title: "ERROR".localized(), message: error.localizedDescription, preferredStyle: .alert)
@@ -209,7 +214,10 @@ class LoginController: UIViewController, UITextFieldDelegate {
         spinner.start()
         guard let username = usernameTF.text, let email = emailTF.text, let password = passwordTF.text else { return }
         var alertTitle = "", alertMessage = "", alertAction = UIAlertAction()
-        FirebaseService.shared().createUser(username: username, email: email, password: password).then { _ -> Void in
+        
+        firstly {
+            FirebaseService.shared().createUser(username: username, email: email, password: password)
+        }.then { _ -> Void in
             alertTitle = "VERIFY_EMAIL_TITLE".localized()
             alertMessage = "VERIFY_EMAIL_MSG".localized()
             alertAction = UIAlertAction(title: "OK".localized(), style: .default) { _ in
@@ -329,5 +337,4 @@ class LoginController: UIViewController, UITextFieldDelegate {
         spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
-    
 }
