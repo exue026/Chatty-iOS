@@ -13,8 +13,6 @@ class ProfileSettingsController: UIViewController {
     
     // MARK: Properties
     
-    private let className = String(typeOfClass: ProfileSettingsController.self)
-    
     private let logoutButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -36,7 +34,7 @@ class ProfileSettingsController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(className + " : didLoad")
+        self.printDidLoad()
         view.backgroundColor = UIColor(theme: .bluegrey)
         
         navigationItem.title = "PROFILE_SETTINGS".localized()
@@ -52,7 +50,7 @@ class ProfileSettingsController: UIViewController {
     }
     
     deinit {
-        print(className + " : deinitializing")
+        self.printDeinit()
     }
     
     // MARK: Helper functions

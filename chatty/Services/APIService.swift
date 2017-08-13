@@ -25,8 +25,6 @@ class APIService {
     
     // MARK: Properties
     
-    let className = String(typeOfClass: APIService.self)
-    
     private static let sharedInstance = {
         return APIService(baseURL: NetworkRes.baseURL_DEV)
     }()
@@ -41,29 +39,42 @@ class APIService {
     
     // MARK: HTTP Requests
     
-    func postIdToken(idToken: String) -> Promise<Any> {
-        return sendRequest(endpoint: "/users/idTokens/\(idToken)", type: .POST)
+    func getUser(for idToken: String) -> Promise<User> {
+        return firstly {
+            sendRequest(endpoint: "/users/idTokens/\(idToken)", type: .GET)
+        }.then { (data: Data?) -> Promise<User> in
+            do {
+                let user = try JSONDecoder().decode(User.self, from: data!)
+                return Promise(value: user)
+            } catch let error {
+                print(error.localizedDescription)
+                throw error
+            }
+        }
     }
     
-    private func sendRequest(endpoint: String, type: RequestType) -> Promise<Any> {
+    func updateUser(forId id: Int, info: [String: Any]) -> Promise<Data?> {
+        return sendRequest(endpoint: "/users/\(id)/updateInfo", type: .PUT, body: info)
+    }
+    
+    private func sendRequest(endpoint: String, type: RequestType, body: [String: Any]? = nil) -> Promise<Data?> {
         return Promise { resolve, reject in
             guard let url = URL(string: baseURL + endpoint) else { return }
             var request = URLRequest(url: url)
             request.httpMethod = type.rawValue
+            if let body = body {
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.addValue("application/json", forHTTPHeaderField: "Accept")
+                request.httpBody = try JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
+            }
             let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
                 if let error = error {
-                    print(self.className + " : " + error.localizedDescription)
+                    print(error.localizedDescription)
                     return reject(error)
                 }
-                if type == .POST { return resolve(()) }
+                if type == .PUT || type == .POST { return resolve(nil) }
                 guard let data = data, !data.isEmpty else { return reject(CustomAPIError.cannotRetrieveData) }
-                do {
-                    let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) 
-                    return resolve(json)
-                } catch let error {
-                    print(self.className + " : " + error.localizedDescription)
-                    return reject(error)
-                }
+                resolve(data)
             }
             task.resume()
         }

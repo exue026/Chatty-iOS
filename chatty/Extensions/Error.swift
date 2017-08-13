@@ -8,8 +8,18 @@
 
 import Foundation
 
+enum BaseError: LocalizedError {
+    case unknownError
+    var errorDescription: String? {
+        switch self {
+        case .unknownError:
+            return "UNKNOWN_ERROR".localized()
+        }
+    }
+}
+
 extension CustomFirebaseError : LocalizedError {
-    public var errorDescription: String? {
+    var errorDescription: String? {
         switch self {
         case .blankFields:
             return "LOGIN_BLANK_FIELDS".localized()
@@ -22,7 +32,7 @@ extension CustomFirebaseError : LocalizedError {
 }
 
 extension CustomAPIError: LocalizedError {
-    public var errorDescription: String? {
+    var errorDescription: String? {
         switch self {
         case .cannotRetrieveData:
             return "DATA_NOT_FETCHED".localized()

@@ -19,8 +19,6 @@ enum CustomFirebaseError : Error {
 class FirebaseService {
     
     // MARK: Properties
-
-    let className = String(typeOfClass: FirebaseService.self)
     
     private static let sharedInstance = {
         return FirebaseService(databaseURL: FirebaseRes.databaseURL)
@@ -48,7 +46,7 @@ class FirebaseService {
                     let values = ["username": username, "email": email, "password": password]
                     usersRef.updateChildValues(values, withCompletionBlock: { (error: Error?, _) in
                         if let error = error {
-                            print(self.className + " : " + error.localizedDescription)
+                            print(error.localizedDescription)
                             return reject(CustomFirebaseError.unknownError)
                         }
                         return resolve(())
@@ -58,7 +56,7 @@ class FirebaseService {
         }
     }
     
-    func signInUser(email: String, password: String) -> Promise<Void> {
+    func signInUser(email: String, password: String) -> Promise<String> {
         return Promise { resolve, reject in
             if email.trim().isEmpty || password.trim().isEmpty { return reject(CustomFirebaseError.blankFields) }
             FIRAuth.auth()?.signIn(withEmail: email, password: password) { (user: FIRUser?, error: Error?) in
@@ -70,17 +68,13 @@ class FirebaseService {
                         return reject(CustomFirebaseError.emailNotVerified)
                     }
                     catch let error {
-                        print(self.className + " : " + error.localizedDescription)
+                        print(error.localizedDescription)
                         return reject(error)
                     }
                 }
                 user.getTokenForcingRefresh(true) { (idToken: String?, error: Error?) in
                     guard let idToken = idToken else { return reject(CustomFirebaseError.unknownError) }
-                    APIService.shared().postIdToken(idToken: idToken).then { _ -> Void in
-                        return resolve(())
-                    }.catch { error in
-                        return reject(error)
-                    }
+                    return resolve(idToken)
                 }
             }
         }
@@ -94,6 +88,7 @@ class FirebaseService {
             print(error)
             return false
         }
+        UserManagerService.shared().myUser = nil
         return true
     }
     

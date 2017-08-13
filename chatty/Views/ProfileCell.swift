@@ -10,7 +10,9 @@ import UIKit
 
 class ProfileCell: UICollectionViewCell {
     
-    static let cellId = "ProfileCell"
+    // MARK: Properties
+    
+    static let cellId = "profileCellId"
     
     private let coverPhoto: UIImageView = {
         let imageView = UIImageView(imageName: "chatty_launchscreen")
@@ -27,19 +29,19 @@ class ProfileCell: UICollectionViewCell {
         return imageView
     }()
     
-    private let nameLabel: UILabel = {
+    let nameLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = UIColor.white
         label.translatesAutoresizingMaskIntoConstraints = false
         label.layer.masksToBounds = true
         label.layer.cornerRadius = 5
-        label.text = "Ethan Xue"
+        label.text = UserManagerService.shared().myUser?.displayName
         label.textAlignment = NSTextAlignment.center
         label.font = UIFont(name: FontRes.Avenir, size: 30)
         return label
     }()
     
-    private let descriptionLabel: UILabel = {
+    let descriptionLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = UIColor.white
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -48,7 +50,7 @@ class ProfileCell: UICollectionViewCell {
         label.textAlignment = NSTextAlignment.center
         label.font = UIFont(name: FontRes.SanFran, size: 16.0)
         label.font = label.font.withSize(16.0)
-        label.text = "CEO and Founder of xTech • Creator of Chatty • Student at University of Waterloo • Software Engineer • Lifelong Learner"
+        label.text = UserManagerService.shared().myUser?.descript
         label.numberOfLines = 4
         return label
     }()
@@ -60,8 +62,11 @@ class ProfileCell: UICollectionViewCell {
         return view
     }()
     
+    // MARK: Lifecycle
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.printInit()
         addSubview(coverPhoto)
         addSubview(profilePic)
         addSubview(nameLabel)
@@ -77,6 +82,12 @@ class ProfileCell: UICollectionViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    deinit {
+        self.printDeinit()
+    }
+    
+    // MARK: Setup views
     
     private func setupCoverPhoto() {
         coverPhoto.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true

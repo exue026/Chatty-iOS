@@ -7,16 +7,16 @@
 //
 
 import UIKit
+import PromiseKit
 
 protocol DataReceiver {
     func getData(data: AnyHashable)
 }
 
-class ProfileEditController: UIViewController, DataReceiver, UITextFieldDelegate  {
+class ProfileEditController: UIViewController, DataReceiver, UITextFieldDelegate, UITextViewDelegate  {
     
     // MARK: Properties
-    
-    private let className = String(typeOfClass: ProfileEditController.self)
+
     private var data: String?
     private var didMakeChanges: Bool = false
     
@@ -26,7 +26,7 @@ class ProfileEditController: UIViewController, DataReceiver, UITextFieldDelegate
         button.backgroundColor = UIColor(theme: .purpleblue)
         button.setTitle("SAVE".localized(), for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
         button.layer.cornerRadius = 5
         button.layer.masksToBounds = true
         button.addTarget(self, action: #selector(saveInfo), for: .touchUpInside)
@@ -39,34 +39,49 @@ class ProfileEditController: UIViewController, DataReceiver, UITextFieldDelegate
         button.backgroundColor = UIColor(theme: .purpleblue)
         button.setTitle("BACK".localized(), for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
         button.layer.cornerRadius = 5
         button.layer.masksToBounds = true
         button.addTarget(self, action: #selector(back(sender:)), for: .touchUpInside)
         return button
     }()
     
-    private let displayNameText: UITextField = {
+    private lazy var nameText: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.backgroundColor = UIColor(theme: .purpleblue)
         textField.layer.masksToBounds = true
         textField.layer.cornerRadius = 5
         textField.textColor = UIColor.white
-        textField.font = UIFont(name: FontRes.Avenir, size: 30)
-        textField.text = "Ethan Xue"
+        textField.font = UIFont(name: FontRes.Avenir, size: 28)
+        textField.font = textField.font?.withSize(28)
         textField.textAlignment = NSTextAlignment.center
+        textField.delegate = self
+        textField.text = UserManagerService.shared().myUser?.displayName
         return textField
+    }()
+    
+    private lazy var descriptionText: UITextView = {
+        let textView = UITextView()
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.backgroundColor = UIColor(theme: .purpleblue)
+        textView.layer.masksToBounds = true
+        textView.layer.cornerRadius = 5
+        textView.textColor = UIColor.white
+        textView.font = UIFont(name: FontRes.Avenir, size: 22)
+        textView.font = textView.font?.withSize(22)
+        textView.textAlignment = NSTextAlignment.center
+        textView.delegate = self
+        textView.text = UserManagerService.shared().myUser?.descript
+        return textView
     }()
     
     // MARK: Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(className  + " : didLoad")
+        self.printDidLoad()
         view.backgroundColor = UIColor(theme: .purpleblue)
-        
-        displayNameText.delegate = self
         
         view.addSubview(backButton)
         view.addSubview(saveButton)
@@ -77,19 +92,42 @@ class ProfileEditController: UIViewController, DataReceiver, UITextFieldDelegate
     }
     
     deinit {
-        print(className + " : deinitializing")
+        self.printDeinit()
     }
     
     // MARK: Save button target
     
     @objc private func saveInfo() {
         view.endEditing(true)
-        if didMakeChanges {
-            didMakeChanges = false
+        updateUserInfo().then { _ -> Void in
+            if self.didMakeChanges {
+                self.didMakeChanges = false
+            }
+            UserManagerService.shared().updatedInfo = true
+            let alert = UIAlertController(title: "SAVED".localized(), message: "SAVED_INFO".localized(), preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK".localized(), style: .default))
+            self.present(alert, animated: true, completion: nil)
+        }.catch { (error: Error) in
+            print(error)
         }
-        let alert = UIAlertController(title: "SAVED".localized(), message: "SAVED_INFO".localized(), preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK".localized(), style: .default))
-        present(alert, animated: true, completion: nil)
+    }
+    
+    // MARK: Helper functions
+    
+    private func updateUserInfo() -> Promise<Data?> {
+        guard let data = data, let nameText = nameText.text, let descriptionText = descriptionText.text else {
+            return Promise(error: BaseError.unknownError)
+        }
+        switch(data) {
+        case "EDIT_NAME".localized():
+            UserManagerService.shared().myUser?.displayName = nameText
+            return UserManagerService.shared().updateUserInfo(info: [User.UserKeys.name.stringValue : nameText])
+        case "EDIT_PF_DESCRIPTION".localized():
+            UserManagerService.shared().myUser?.descript = descriptionText
+            return UserManagerService.shared().updateUserInfo(info: [User.UserKeys.description.stringValue : descriptionText])
+        default:
+            return Promise(error: BaseError.unknownError)
+        }
     }
     
     // MARK: DataReceiver
@@ -98,7 +136,7 @@ class ProfileEditController: UIViewController, DataReceiver, UITextFieldDelegate
         self.data = data as? String
     }
     
-    // MARK: UITextFieldDelegate
+    // MARK: UITextFieldDelegate and UITextViewDelegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
@@ -106,6 +144,18 @@ class ProfileEditController: UIViewController, DataReceiver, UITextFieldDelegate
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        didMakeChanges = true
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
         didMakeChanges = true
     }
     
@@ -136,22 +186,30 @@ class ProfileEditController: UIViewController, DataReceiver, UITextFieldDelegate
         guard let data = data else { return }
         switch(data) {
         case "CHANGE_PFP".localized():
-            view.addSubview(displayNameText)
+            view.addSubview(nameText)
         case "EDIT_NAME".localized():
-            view.addSubview(displayNameText)
-            setupDisplayNameText()
+            view.addSubview(nameText)
+            setupNameText()
         case "EDIT_PF_DESCRIPTION".localized():
-            view.addSubview(displayNameText)
+            view.addSubview(descriptionText)
+            setupDescriptionText()
         default:
             print(className + " : An unknown error occured")
         }
     }
     
-    private func setupDisplayNameText() {
-        displayNameText.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        displayNameText.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        displayNameText.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        displayNameText.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -24).isActive = true
+    private func setupNameText() {
+        nameText.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        nameText.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        nameText.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        nameText.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -24).isActive = true
+    }
+    
+    private func setupDescriptionText() {
+        descriptionText.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        descriptionText.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        descriptionText.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        descriptionText.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -24).isActive = true
     }
     
     private func setupBackButton() {

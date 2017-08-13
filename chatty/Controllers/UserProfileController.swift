@@ -10,8 +10,7 @@ import UIKit
 
 class UserProfileController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
-    private let className = String(typeOfClass: UserProfileController.self)
-    private let cellId = "cellId"
+    // MARK: Properties
     
     private lazy var profilePager: ProfilePager = {
         let pager = ProfilePager()
@@ -22,6 +21,7 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.printDidLoad()
         
         configureCollectionView()
         configureNavBar()
@@ -30,8 +30,20 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
         setupProfilePager()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if UserManagerService.shared().updatedInfo {
+            UserManagerService.shared().updatedInfo = false
+            let profilePageIndexPath = IndexPath(item: 0, section: 0)
+            let cell = collectionView?.cellForItem(at: profilePageIndexPath) as? ProfileCell
+            cell?.nameLabel.text = UserManagerService.shared().myUser?.displayName
+            cell?.descriptionLabel.text = UserManagerService.shared().myUser?.descript
+            collectionView?.reloadData()
+        }
+    }
+    
     deinit {
-        print(className + " : Deinitializing")
+        self.printDeinit()
     }
     
     // MARK: Helper functions
@@ -53,6 +65,8 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "SETTINGS".localized(), style: .plain, target: self, action: #selector(segueToProfileSettings))
         navigationController?.navigationBar.isTranslucent = false
     }
+    
+    // Public functions
     
     func scrollToPagerIndex(index: Int) {
         let indexPath = IndexPath(item: index, section: 0)

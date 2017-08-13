@@ -12,37 +12,47 @@ class ProfilePager : UIView, UICollectionViewDelegate, UICollectionViewDataSourc
     
     // MARK: Properties
     
-    private let collectionView: UICollectionView = {
+    private let pages = ["Me", "Posts"]
+    var pagerBarLeftAnchor: NSLayoutConstraint?
+    weak var userProfileController: UserProfileController?
+    
+    private lazy var collectionView: UICollectionView = {
         let cv = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
         cv.translatesAutoresizingMaskIntoConstraints = false
+        cv.delegate = self
+        cv.dataSource = self
         return cv
     }()
     
-    private let cellId = "cellId"
-    private let pageNames = ["Me", "Posts"]
-    var pagerBarLeftAnchor: NSLayoutConstraint?
-    weak var userProfileController: UserProfileController?
+    private let pagerBar: UIView = {
+        let bar = UIView()
+        bar.translatesAutoresizingMaskIntoConstraints = false
+        bar.backgroundColor = UIColor.white
+        return bar
+    }()
     
     // MARK: Lifecycle
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        collectionView.register(ProfilePagerCell.self, forCellWithReuseIdentifier: cellId)
-        
-        collectionView.delegate = self
-        collectionView.dataSource = self
+        self.printInit()
+        collectionView.register(ProfilePagerCell.self, forCellWithReuseIdentifier: ProfilePagerCell.cellId)
         
         addSubview(collectionView)
         setupCollectionView()
         
-        let indexPathOfSelectedCell = IndexPath(item: 0, section: 0)
-        collectionView.selectItem(at: indexPathOfSelectedCell, animated: false, scrollPosition: [])
+        let indexPathOfDefaultSelectedCell = IndexPath(item: 0, section: 0)
+        collectionView.selectItem(at: indexPathOfDefaultSelectedCell, animated: false, scrollPosition: [])
         
+        addSubview(pagerBar)
         setupPagerBar()
     }
     
-    // Helper functions
+    deinit {
+        self.printDeinit()
+    }
+    
+    // Public functions
     
     func selectItem(at indexPath: IndexPath) {
         collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
@@ -52,11 +62,11 @@ class ProfilePager : UIView, UICollectionViewDelegate, UICollectionViewDataSourc
     
     func numberOfSections(in collectionView: UICollectionView) -> Int { return 1 }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int { return 2 }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int { return pages.count }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ProfilePagerCell
-        cell.setPageName(name: pageNames[indexPath.row])
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfilePagerCell.cellId, for: indexPath) as! ProfilePagerCell
+        cell.setPageName(name: pages[indexPath.row])
         return cell
     }
     
@@ -64,22 +74,18 @@ class ProfilePager : UIView, UICollectionViewDelegate, UICollectionViewDataSourc
         userProfileController?.scrollToPagerIndex(index: indexPath.row)
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize { return CGSize(width: frame.width / 2, height: frame.height) }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize { return CGSize(width: frame.width / CGFloat(pages.count), height: frame.height) }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat { return 0 }
     
     // Setup Views
     
     private func setupPagerBar() {
-        let bar = UIView()
-        bar.translatesAutoresizingMaskIntoConstraints = false
-        bar.backgroundColor = UIColor.white
-        addSubview(bar)
-        bar.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1/2).isActive = true
-        pagerBarLeftAnchor = bar.leftAnchor.constraint(equalTo: self.leftAnchor)
+        pagerBar.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1 / CGFloat(pages.count)).isActive = true
+        pagerBarLeftAnchor = pagerBar.leftAnchor.constraint(equalTo: self.leftAnchor)
         pagerBarLeftAnchor?.isActive = true
-        bar.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        bar.heightAnchor.constraint(equalToConstant: 4).isActive = true
+        pagerBar.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        pagerBar.heightAnchor.constraint(equalToConstant: 4).isActive = true
     }
     
     private func setupCollectionView() {
@@ -94,6 +100,10 @@ class ProfilePager : UIView, UICollectionViewDelegate, UICollectionViewDataSourc
 }
 
 class ProfilePagerCell : UICollectionViewCell {
+    
+    // MARK: Properties
+    
+    static let cellId = "profilePagerCellId"
     
     private let pageName: UILabel = {
         let label = UILabel()
@@ -110,26 +120,26 @@ class ProfilePagerCell : UICollectionViewCell {
         }
     }
     
+    // MARK: Lifecycle
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupViews()
+        self.backgroundColor = UIColor(theme: .bluegrey)
+        addSubview(pageName)
+        setupPageName()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // Helper functions
+    // Public functions
     
     func setPageName(name: String) {
         pageName.text = name
     }
     
-    private func setupViews() {
-        self.backgroundColor = UIColor(theme: .bluegrey)
-        addSubview(pageName)
-        setupPageName()
-    }
+    // Setup views
     
     private func setupPageName() {
         pageName.heightAnchor.constraint(equalToConstant: 28).isActive = true
