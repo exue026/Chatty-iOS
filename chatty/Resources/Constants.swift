@@ -9,7 +9,7 @@
 import Foundation
 
 struct NetworkRes {
-    static let baseURL_DEV = "http://localhost:8080/api"
+    static let baseURL_DEV = "http://192.168.100.217:8080/api"
 }
 
 struct FirebaseRes {
