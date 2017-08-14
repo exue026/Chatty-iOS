@@ -18,6 +18,7 @@ class UserManagerService {
     }()
     
     var myUser: User?
+    var contacts: [User]?
     var updatedInfo: Bool = false
     
     func updateUserInfo(info: [String: String]) -> Promise<Data?> {
@@ -29,7 +30,12 @@ class UserManagerService {
     
     // MARK: Initializers
     
-    private init() { }
+    private init() {
+        let contact1 = User(username: "chenboi", displayName: "George Chen")
+        let contact2 = User(username: "jamal", displayName: "Thomson Mai")
+        let contact3 = User(username: "brady_liu", displayName: "Brady Liu")
+        contacts = [contact1, contact2, contact3]
+    }
     
     static func shared() -> UserManagerService {
         return sharedInstance;

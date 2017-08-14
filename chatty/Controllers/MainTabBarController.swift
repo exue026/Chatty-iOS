@@ -25,19 +25,7 @@ class MainTabBarController: UITabBarController {
         view.backgroundColor = UIColor.white
         tabBar.tintColor = UIColor(theme: .purpleblue)
         
-        if FirebaseService.shared().currentUserExists(), UserManagerService.shared().myUser == nil {
-            firstly {
-                FirebaseService.shared().getIdToken()
-            }.then { (idToken: String) -> Promise<User> in
-                APIService.shared().getUser(forIdToken: idToken)
-            }.then { (user: User) -> Void in
-                UserManagerService.shared().myUser = user
-            }.catch { error in
-                print(error)
-            }.always {
-                self.setupManagedVCs()
-            }
-        }
+        checkIfSignedIn()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -52,6 +40,22 @@ class MainTabBarController: UITabBarController {
     }
     
     // Helper functions
+    
+    private func checkIfSignedIn() {
+        if FirebaseService.shared().currentUserExists(), UserManagerService.shared().myUser == nil {
+            firstly {
+                FirebaseService.shared().getIdToken()
+                }.then { (idToken: String) -> Promise<User> in
+                    APIService.shared().getUser(forIdToken: idToken)
+                }.then { (user: User) -> Void in
+                    UserManagerService.shared().myUser = user
+                }.catch { error in
+                    print(error)
+                }.always {
+                    self.setupManagedVCs()
+            }
+        }
+    }
     
     private func setupManagedVCs() {
         let newsFeedVC = FeedController(collectionViewLayout: UICollectionViewFlowLayout())

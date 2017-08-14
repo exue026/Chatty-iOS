@@ -57,6 +57,19 @@ class APIService {
         return sendRequest(endpoint: "/users/\(id)/updateInfo", type: .PUT, body: info)
     }
     
+    func getMatchingUsers(forUsername username: String) -> Promise<[User]?> {
+        return firstly {
+            sendRequest(endpoint: "/users/usernames/\(username)", type: .GET)
+        }.then { (data: Data?) -> Promise<[User]?> in
+            do {
+                let users = try JSONDecoder().decode([User].self, from: data!)
+                return Promise(value: users)
+            } catch {
+                return Promise(value: nil)
+            }
+        }
+    }
+    
     private func sendRequest(endpoint: String, type: RequestType, body: [String: Any]? = nil) -> Promise<Data?> {
         return Promise { resolve, reject in
             guard let url = URL(string: baseURL + endpoint) else { return }

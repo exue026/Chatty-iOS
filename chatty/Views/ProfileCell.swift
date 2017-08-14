@@ -12,7 +12,7 @@ class ProfileCell: UICollectionViewCell {
     
     // MARK: Properties
     
-    static let cellId = "profileCellId"
+    static let cellId = "ProfileCell"
     
     private let coverPhoto: UIImageView = {
         let imageView = UIImageView(imageName: "chatty_launchscreen")

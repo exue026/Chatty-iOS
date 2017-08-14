@@ -20,6 +20,17 @@ struct User {
     var descript: String?
     var pfp: UIImage?
     var coverPhoto: UIImage?
+    
+    init(username: String, displayName: String) {
+        self.username = username
+        self.displayName = displayName
+        uid = nil
+        id = nil
+        posts = nil
+        descript = nil
+        pfp = nil
+        coverPhoto = nil
+    }
 }
 
 extension User: Decodable {
@@ -37,5 +48,4 @@ extension User: Decodable {
         descript = try container.decodeIfPresent(String.self, forKey: .description)
     }
 }
-
 
