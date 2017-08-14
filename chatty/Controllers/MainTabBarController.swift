@@ -46,7 +46,7 @@ class MainTabBarController: UITabBarController {
             firstly {
                 FirebaseService.shared().getIdToken()
             }.then { (idToken: String) -> Promise<User> in
-                return APIService.shared().getUser(forIdToken: idToken)
+                APIService.shared().getUser(forIdToken: idToken)
             }.then { (user: User) -> Void in
                 UserManagerService.shared().myUser = user
             }.catch { error in
