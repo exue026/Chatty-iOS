@@ -44,3 +44,4 @@
 "CONTACTS" = "Contacts";
 "FRIEND" = "Friends";
 "FIND_FRIENDS" = "Find friends";
+"REQUEST_TIMEOUT" = "The request timed out";

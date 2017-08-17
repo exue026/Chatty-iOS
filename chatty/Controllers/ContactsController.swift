@@ -59,6 +59,11 @@ class ContactsController: UICollectionViewController, UICollectionViewDelegateFl
         return cell
     }
     
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        UserManagerService.shared().selectedContact = contacts?[indexPath.row]
+        navigationController?.pushViewController(UserProfileController(collectionViewLayout: UICollectionViewFlowLayout()), animated: true)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0.8
     }

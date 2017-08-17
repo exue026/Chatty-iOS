@@ -8,24 +8,23 @@
 
 import UIKit
 
-private let reuseIdentifier = "Cell"
-
 class FeedController: UICollectionViewController {
     
     // MARK: Properties
+    
+    private var feedView: FeedView?
     
     // MARK: Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.printDidLoad()
-        collectionView!.backgroundColor = UIColor.white
-        
         navigationItem.title = "NEWSFEED".localized()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "POST".localized(), style: .plain, target: self, action: #selector(handlePost))
         navigationController?.navigationBar.isTranslucent = false
-        
-        collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        feedView = FeedView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height - 65))
+        view.addSubview(feedView!)
+        setupFeedView()
     }
     
     deinit {
@@ -38,20 +37,11 @@ class FeedController: UICollectionViewController {
         
     }
     
-    // MARK: UICollectionView
-
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 3
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+    // MARK: Properties
     
-        return cell
+    private func setupFeedView() {
+        feedView?.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        feedView?.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+        feedView?.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
     }
-
 }

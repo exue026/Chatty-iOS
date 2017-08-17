@@ -18,6 +18,7 @@ enum RequestType: String {
 
 enum CustomAPIError : Error {
     case cannotRetrieveData
+    case requestTimeout
     case invalidDataFormat
 }
 
@@ -82,6 +83,7 @@ class APIService {
             }
             let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
                 if let error = error {
+                    print("Hi")
                     print(error.localizedDescription)
                     return reject(error)
                 }

@@ -38,6 +38,8 @@ extension CustomAPIError: LocalizedError {
             return "DATA_NOT_FETCHED".localized()
         case .invalidDataFormat:
             return "INVALID_DATA_FORMAT".localized()
+        case .requestTimeout:
+            return "REQUEST_TIMEOUT".localized()
         }
     }
 }

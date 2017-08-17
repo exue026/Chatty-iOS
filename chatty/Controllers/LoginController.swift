@@ -192,7 +192,6 @@ class LoginController: UIViewController, UITextFieldDelegate {
     private func handleLogin() {
         spinner.start()
         guard let email = emailTF.text, let password = passwordTF.text else { return }
-        
         firstly {
             FirebaseService.shared().signInUser(email: email, password: password)
         }.then { (idToken: String) -> Promise<User> in

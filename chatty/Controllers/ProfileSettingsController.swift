@@ -56,7 +56,7 @@ class ProfileSettingsController: UIViewController {
     // MARK: Helper functions
     
     private func getButton(forTitle title: String) -> UIButton {
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = UIColor.white
         button.setTitleColor(UIColor.black, for: .normal)

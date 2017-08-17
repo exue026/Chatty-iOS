@@ -21,13 +21,13 @@ struct User {
     var pfp: UIImage?
     var coverPhoto: UIImage?
     
-    init(username: String, displayName: String) {
+    init(username: String, displayName: String, description: String) {
         self.username = username
         self.displayName = displayName
         uid = nil
         id = nil
         posts = nil
-        descript = nil
+        descript = description
         pfp = nil
         coverPhoto = nil
     }

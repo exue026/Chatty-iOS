@@ -1,5 +1,5 @@
 //
-//  ProfileCell.swift
+//  ProfileView.swift
 //  chatty
 //
 //  Created by Ethan Xue on 2017-08-07.
@@ -8,11 +8,11 @@
 
 import UIKit
 
-class ProfileCell: UICollectionViewCell {
+class ProfileView: UICollectionViewCell {
     
     // MARK: Properties
     
-    static let cellId = "ProfileCell"
+    static let cellId = "ProfileView"
     
     private let coverPhoto: UIImageView = {
         let imageView = UIImageView(imageName: "chatty_launchscreen")
@@ -20,7 +20,7 @@ class ProfileCell: UICollectionViewCell {
         return imageView
     }()
     
-    private let profilePic: UIImageView = {
+    fileprivate let profilePic: UIImageView = {
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 150, height: 150))
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(named: "ethan_face")
@@ -35,7 +35,6 @@ class ProfileCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.layer.masksToBounds = true
         label.layer.cornerRadius = 5
-        label.text = UserManagerService.shared().myUser?.displayName
         label.textAlignment = NSTextAlignment.center
         label.font = UIFont(name: FontRes.Avenir, size: 30)
         return label
@@ -50,12 +49,11 @@ class ProfileCell: UICollectionViewCell {
         label.textAlignment = NSTextAlignment.center
         label.font = UIFont(name: FontRes.SanFran, size: 16.0)
         label.font = label.font.withSize(16.0)
-        label.text = UserManagerService.shared().myUser?.descript
         label.numberOfLines = 4
         return label
     }()
     
-    private let separatorView: UIView = {
+    fileprivate let separatorView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(theme: .bluegrey)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -77,6 +75,8 @@ class ProfileCell: UICollectionViewCell {
         setupNameLabel()
         setupDescriptionLabel()
         setupSeparatorView()
+        
+        additionalSetup()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -86,6 +86,10 @@ class ProfileCell: UICollectionViewCell {
     deinit {
         self.printDeinit()
     }
+    
+    // MARK: Abstract functions
+    
+    fileprivate func additionalSetup() { }
     
     // MARK: Setup views
     
@@ -103,11 +107,11 @@ class ProfileCell: UICollectionViewCell {
         profilePic.topAnchor.constraint(equalTo: coverPhoto.topAnchor, constant: 75).isActive = true
     }
     
-    private func setupNameLabel() {
+    fileprivate func setupNameLabel() {
         nameLabel.topAnchor.constraint(equalTo: profilePic.bottomAnchor, constant: 40).isActive = true
         nameLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         nameLabel.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
-        nameLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        nameLabel.heightAnchor.constraint(equalToConstant: 35).isActive = true
     }
     
     private func setupDescriptionLabel() {
@@ -124,3 +128,38 @@ class ProfileCell: UICollectionViewCell {
         separatorView.heightAnchor.constraint(equalToConstant: 3).isActive = true
     }
 }
+
+class ContactProfileView: ProfileView {
+    
+    private let statusButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.backgroundColor = UIColor.white
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.masksToBounds = true
+        button.layer.cornerRadius = 5
+        button.setTitleColor(UIColor(theme: .purpleblue), for: .normal)
+        button.titleLabel?.font = UIFont(name: FontRes.Avenir, size: 16.0)
+        button.titleLabel?.font = button.titleLabel?.font.withSize(16.0)
+        button.addTarget(self, action: #selector(handleStatusChange), for: .touchUpInside)
+        button.setTitle("Friends", for: .normal)
+        return button
+    }()
+    
+    override func additionalSetup() {
+        addSubview(statusButton)
+        setupStatusButton()
+    }
+    
+    @objc private func handleStatusChange() {
+        
+    }
+    
+    private func setupStatusButton() {
+        statusButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        statusButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        statusButton.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        statusButton.topAnchor.constraint(equalTo: separatorView.topAnchor, constant: 25).isActive = true
+    }
+}
+
+

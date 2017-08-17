@@ -46,7 +46,7 @@ class MainTabBarController: UITabBarController {
             firstly {
                 FirebaseService.shared().getIdToken()
             }.then { (idToken: String) -> Promise<User> in
-                APIService.shared().getUser(forIdToken: idToken)
+                return APIService.shared().getUser(forIdToken: idToken)
             }.then { (user: User) -> Void in
                 UserManagerService.shared().myUser = user
             }.catch { error in
@@ -61,7 +61,7 @@ class MainTabBarController: UITabBarController {
         let newsFeedVC = FeedController(collectionViewLayout: UICollectionViewFlowLayout())
         newsFeedVC.tabBarItem = UITabBarItem(title: "FEED".localized(), image: UIImage(named: "tab_bar_feed"), tag: MainTabBarManagedControllers.newsFeedVC.rawValue)
         
-        let userProfileVC = UserProfileController(collectionViewLayout: UICollectionViewFlowLayout())
+        let userProfileVC = MyUserProfileController(collectionViewLayout: UICollectionViewFlowLayout())
         userProfileVC.tabBarItem = UITabBarItem(title: "PROFILE".localized(), image: UIImage(named: "tab_bar_profile"), tag: MainTabBarManagedControllers.userProfileVC.rawValue)
         
         let contactsVC = ContactsController(collectionViewLayout: UICollectionViewFlowLayout())
