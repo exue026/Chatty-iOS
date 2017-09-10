@@ -194,11 +194,18 @@ class LoginController: UIViewController, UITextFieldDelegate {
         guard let email = emailTF.text, let password = passwordTF.text else { return }
         firstly {
             FirebaseService.shared().signInUser(email: email, password: password)
-        }.then { (idToken: String) -> Promise<User> in
+        }.then { (idToken: String) -> Promise<[String: Any]> in
             APIService.shared().getUser(forIdToken: idToken)
-        }.then { (user: User) -> Void in
-            UserManagerService.shared().myUser = user
+        }.then { (userJSON: [String: Any]) -> Promise<[[String: Any]]> in
+            UserManagerService.shared().myUser = User(json: userJSON)
             UserManagerService.shared().updatedInfo = true
+            return APIService.shared().getContactsForUser(withId: UserManagerService.shared().myUser!.id!)
+        }.then { (contactsJSON: [[String: Any]]) -> Void in
+            UserManagerService.shared().contacts = []
+            for contactJSON in contactsJSON {
+                UserManagerService.shared().contacts?.append(User(json: contactJSON))
+            }
+            UserManagerService.shared().updatedContacts = true
             self.segueToMainTabBarController()
         }.catch { error in
             let alert = UIAlertController(title: "ERROR".localized(), message: error.localizedDescription, preferredStyle: .alert)

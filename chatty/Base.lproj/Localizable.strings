@@ -42,6 +42,10 @@
 "VIEW_MY_POSTS" = "View my posts";
 "POST" = "Post";
 "CONTACTS" = "Contacts";
-"FRIEND" = "Friends";
+"FRIENDS" = "Friends";
+"FRIEND" = "Friend";
 "FIND_FRIENDS" = "Find friends";
 "REQUEST_TIMEOUT" = "The request timed out";
+"ADD_CONTACT" = "Add Contact";
+"CONTACT" = "CONTACT";
+"REQUEST_PENDING" = "Pending";

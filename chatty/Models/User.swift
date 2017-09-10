@@ -8,33 +8,73 @@
 
 import UIKit
 
-struct User {
+class User {
     
     // MARK: Properties
     
     let uid: String?
-    let username: String?
+    var username: String?
     let id: Int?
     var displayName: String?
     var posts: [Post]?
     var descript: String?
     var pfp: UIImage?
     var coverPhoto: UIImage?
+    var statusCode: Int? { // 0 = pending, 1 = friends, else not friends
+        didSet {
+            setStatus()
+        }
+    }
+    var status: String?
     
-    init(username: String, displayName: String, description: String) {
-        self.username = username
-        self.displayName = displayName
-        uid = nil
-        id = nil
-        posts = nil
-        descript = description
+    init(json: [String: Any]) {
+        uid = json["uid"] as? String ?? nil
+        username = json["username"] as? String ?? nil
+        id = json["id"] as? Int ?? nil
+        displayName = json["name"] as? String ?? nil
+        posts = json["posts"] as? [Post] ?? nil
+        descript = json["description"] as? String ?? nil
         pfp = nil
         coverPhoto = nil
+        statusCode = json["statusCode"] as? Int ?? -1
+        setStatus()
+    }
+    
+    private func setStatus() {
+        switch(statusCode!) {
+        case 0:
+            status = "REQUEST_PENDING".localized()
+        case 1:
+            status = "CONTACT".localized()
+        default:
+            status = "ADD_CONTACT".localized()
+        }
+    }
+    
+    //for testing purposes
+    
+    init(username: String, displayName: String, description: String, statusCode: Int) {
+        uid = nil
+        self.username = username
+        id = nil
+        self.displayName = displayName
+        posts = nil
+        self.descript = description
+        pfp = nil
+        coverPhoto = nil
+        self.statusCode = statusCode
+        setStatus()
     }
 }
 
+extension User {
+    enum keys: String {
+        case id, name, uid, username, description, posts
+    }
+}
+/*
 extension User: Decodable {
-    enum UserKeys: String, CodingKey {
+    enum UserKeys: String {
         case id, name, uid, username, description, posts
     }
     
@@ -48,4 +88,4 @@ extension User: Decodable {
         descript = try container.decodeIfPresent(String.self, forKey: .description)
     }
 }
-
+*/

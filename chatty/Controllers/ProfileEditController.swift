@@ -121,10 +121,10 @@ class ProfileEditController: UIViewController, DataReceiver, UITextFieldDelegate
         switch(data) {
         case "EDIT_NAME".localized():
             UserManagerService.shared().myUser?.displayName = nameText
-            return UserManagerService.shared().updateUserInfo(info: [User.UserKeys.name.stringValue : nameText])
+            return UserManagerService.shared().updateUserInfo(info: [User.keys.name.rawValue : nameText])
         case "EDIT_PF_DESCRIPTION".localized():
             UserManagerService.shared().myUser?.descript = descriptionText
-            return UserManagerService.shared().updateUserInfo(info: [User.UserKeys.description.stringValue : descriptionText])
+            return UserManagerService.shared().updateUserInfo(info: [User.keys.description.rawValue : descriptionText])
         default:
             return Promise(error: BaseError.unknownError)
         }

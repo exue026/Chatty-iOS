@@ -37,6 +37,13 @@ class ContactsController: UICollectionViewController, UICollectionViewDelegateFl
         setupSpinner()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        if contacts == nil && UserManagerService.shared().contacts != nil {
+            contacts = UserManagerService.shared().contacts
+            collectionView!.reloadData()
+        }
+    }
+    
     // MARK: UICollectionView
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -53,15 +60,16 @@ class ContactsController: UICollectionViewController, UICollectionViewDelegateFl
             cell.nameLabel.text = name
         }
         else {
-            cell.usernameLabel.text = "FRIEND".localized()
-            cell.nameLabel.text = "FRIEND".localized()
+            cell.usernameLabel.text = "FRIENDS".localized()
+            cell.nameLabel.text = "FRIENDS".localized()
         }
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         UserManagerService.shared().selectedContact = contacts?[indexPath.row]
-        navigationController?.pushViewController(UserProfileController(collectionViewLayout: UICollectionViewFlowLayout()), animated: true)
+        let userProfileVC = UserProfileController(collectionViewLayout: UICollectionViewFlowLayout())
+        navigationController?.pushViewController(userProfileVC, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -90,12 +98,13 @@ class ContactsController: UICollectionViewController, UICollectionViewDelegateFl
         spinner.start()
         searchBar.endEditing(true)
         searchBar.subviews.forEach { $0.subviews.forEach { if let button = $0 as? UIButton { button.isEnabled = true }}}
-        APIService.shared().getMatchingUsers(forUsername: text.trim()).then { (users: [User]?) -> Void in
-            if let users = users {
-                self.contacts = users
-                self.didQuery = true
-                self.collectionView!.reloadData()
+        APIService.shared().getMatchingUsers(forUsername: text.trim()).then { (usersJSON: [[String: Any]]) -> Void in
+            self.contacts = []
+            for userJSON in usersJSON {
+                self.contacts?.append(User(json: userJSON))
             }
+            self.didQuery = true
+            self.collectionView!.reloadData()
         }.catch { error in
             print(error.localizedDescription)
         }.always {

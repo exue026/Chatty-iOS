@@ -70,8 +70,9 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.row == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ContactProfileView.cellId, for: indexPath) as! ContactProfileView
-            cell.nameLabel.text = UserManagerService.shared().selectedContact?.displayName
+            cell.nameLabel.text = UserManagerService.shared().selectedContact?.displayName ?? "FRIEND".localized()
             cell.descriptionLabel.text = UserManagerService.shared().selectedContact?.descript
+            cell.statusButton.setTitle(UserManagerService.shared().selectedContact?.status, for: .normal)
             return cell
         }
         else {

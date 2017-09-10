@@ -131,7 +131,7 @@ class ProfileView: UICollectionViewCell {
 
 class ContactProfileView: ProfileView {
     
-    private let statusButton: UIButton = {
+    lazy var statusButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = UIColor.white
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -141,7 +141,6 @@ class ContactProfileView: ProfileView {
         button.titleLabel?.font = UIFont(name: FontRes.Avenir, size: 16.0)
         button.titleLabel?.font = button.titleLabel?.font.withSize(16.0)
         button.addTarget(self, action: #selector(handleStatusChange), for: .touchUpInside)
-        button.setTitle("Friends", for: .normal)
         return button
     }()
     
@@ -151,11 +150,11 @@ class ContactProfileView: ProfileView {
     }
     
     @objc private func handleStatusChange() {
-        
+        UserManagerService.shared().selectedContact?.statusCode? += 1
+        statusButton.setTitle(UserManagerService.shared().selectedContact?.status, for: .normal)
     }
-    
     private func setupStatusButton() {
-        statusButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        statusButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
         statusButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         statusButton.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         statusButton.topAnchor.constraint(equalTo: separatorView.topAnchor, constant: 25).isActive = true

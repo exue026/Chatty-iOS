@@ -40,13 +40,16 @@ class APIService {
     
     // MARK: HTTP Requests
     
-    func getUser(forIdToken idToken: String) -> Promise<User> {
+    func getUser(forIdToken idToken: String) -> Promise<[String: Any]> {
         return firstly {
             sendRequest(endpoint: "/users/idTokens/\(idToken)", type: .GET)
-        }.then { (data: Data?) -> Promise<User> in
+        }.then { (data: Data?) -> Promise<[String: Any]> in
             do {
-                let user = try JSONDecoder().decode(User.self, from: data!)
-                return Promise(value: user)
+                guard let data = data else { throw CustomAPIError.cannotRetrieveData }
+                guard let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: Any] else {
+                    throw CustomAPIError.invalidDataFormat
+                }
+                return Promise(value: json)
             } catch let error {
                 print(error.localizedDescription)
                 throw error
@@ -58,16 +61,19 @@ class APIService {
         return sendRequest(endpoint: "/users/\(id)/updateInfo", type: .PUT, body: info)
     }
     
-    func getMatchingUsers(forUsername username: String) -> Promise<[User]?> {
+    func getContactsForUser(withId id: Int) -> Promise<[[String: Any]]> {
+        return firstly {
+            sendRequest(endpoint: "/relations/\(id)/contacts", type: .GET)
+        }.then { (data: Data?) -> Promise<[[String: Any]]> in
+            return try self.convertDataToJSONArray(data: data)
+        }
+    }
+    
+    func getMatchingUsers(forUsername username: String) -> Promise<[[String: Any]]> {
         return firstly {
             sendRequest(endpoint: "/users/usernames/\(username)", type: .GET)
-        }.then { (data: Data?) -> Promise<[User]?> in
-            do {
-                let users = try JSONDecoder().decode([User].self, from: data!)
-                return Promise(value: users)
-            } catch {
-                return Promise(value: nil)
-            }
+        }.then { (data: Data?) -> Promise<[[String: Any]]> in
+            return try self.convertDataToJSONArray(data: data)
         }
     }
     
@@ -83,7 +89,6 @@ class APIService {
             }
             let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
                 if let error = error {
-                    print("Hi")
                     print(error.localizedDescription)
                     return reject(error)
                 }
@@ -99,5 +104,18 @@ class APIService {
     
     static func shared() -> APIService {
         return sharedInstance
+    }
+    
+    private func convertDataToJSONArray(data: Data?) throws -> Promise<[[String: Any]]> {
+        do {
+            guard let data = data else { throw CustomAPIError.cannotRetrieveData }
+            guard let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [[String: Any]] else {
+                throw CustomAPIError.invalidDataFormat
+            }
+            return Promise(value: json)
+        } catch let error {
+            print(error.localizedDescription)
+            throw error
+        }
     }
 }

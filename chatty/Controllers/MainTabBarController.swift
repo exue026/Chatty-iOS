@@ -45,10 +45,17 @@ class MainTabBarController: UITabBarController {
         if FirebaseService.shared().currentUserExists(), UserManagerService.shared().myUser == nil {
             firstly {
                 FirebaseService.shared().getIdToken()
-            }.then { (idToken: String) -> Promise<User> in
+            }.then { (idToken: String) -> Promise<[String: Any]> in
                 return APIService.shared().getUser(forIdToken: idToken)
-            }.then { (user: User) -> Void in
-                UserManagerService.shared().myUser = user
+            }.then { (userJSON: [String: Any]) -> Promise<[[String: Any]]> in
+                UserManagerService.shared().myUser = User(json: userJSON)
+                return APIService.shared().getContactsForUser(withId: UserManagerService.shared().myUser!.id!)
+            }.then { (contactsJSON: [[String: Any]]) -> Void in
+                UserManagerService.shared().contacts = []
+                for contactJSON in contactsJSON {
+                    UserManagerService.shared().contacts?.append(User(json: contactJSON))
+                }
+                UserManagerService.shared().updatedContacts = true
             }.catch { error in
                 print(error)
             }.always {
