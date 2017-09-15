@@ -22,7 +22,10 @@ class User {
     var coverPhoto: UIImage?
     var statusCode: Int? { // 0 = pending, 1 = friends, else not friends
         didSet {
-            setStatus()
+            if (statusCode! > 1) { statusCode = 1 }
+            else {
+                setStatus()
+            }
         }
     }
     var status: String?
@@ -72,20 +75,3 @@ extension User {
         case id, name, uid, username, description, posts
     }
 }
-/*
-extension User: Decodable {
-    enum UserKeys: String {
-        case id, name, uid, username, description, posts
-    }
-    
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: UserKeys.self)
-        uid = try container.decodeIfPresent(String.self, forKey: .uid)
-        username = try container.decodeIfPresent(String.self, forKey: .username)
-        id = try container.decodeIfPresent(Int.self, forKey: .id)
-        displayName = try container.decodeIfPresent(String.self, forKey: .name)
-        posts = try container.decodeIfPresent([Post].self, forKey: .posts)
-        descript = try container.decodeIfPresent(String.self, forKey: .description)
-    }
-}
-*/

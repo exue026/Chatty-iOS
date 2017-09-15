@@ -55,9 +55,12 @@ class ContactsController: UICollectionViewController, UICollectionViewDelegateFl
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ContactCell.cellId, for: indexPath) as! ContactCell
-        if let username = contacts?[indexPath.row].username, let name = contacts?[indexPath.row].displayName {
-            cell.usernameLabel.text = username
-            cell.nameLabel.text = name
+        if let contact = contacts?[indexPath.row] {
+            cell.usernameLabel.text = contact.username
+            cell.nameLabel.text = contact.displayName
+            if (contact.statusCode == 0) {
+                cell.pendingLabel.text = "REQUEST_PENDING".localized()
+            }
         }
         else {
             cell.usernameLabel.text = "FRIENDS".localized()

@@ -77,6 +77,10 @@ class APIService {
         }
     }
     
+    func updateRelation(forMyId id1: Int, otherId id2: Int, relation: Int) -> Promise<Data?> {
+        return sendRequest(endpoint: "/relations/update?userId1=\(id1)&userId2=\(id2)&rel=\(relation)", type: .PUT)
+    }
+    
     private func sendRequest(endpoint: String, type: RequestType, body: [String: Any]? = nil) -> Promise<Data?> {
         return Promise { resolve, reject in
             guard let url = URL(string: baseURL + endpoint) else { return }

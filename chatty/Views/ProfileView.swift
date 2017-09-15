@@ -20,10 +20,9 @@ class ProfileView: UICollectionViewCell {
         return imageView
     }()
     
-    fileprivate let profilePic: UIImageView = {
+    var profilePic: UIImageView = {
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 150, height: 150))
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "ethan_face")
         imageView.makeRounded()
         imageView.contentMode = .scaleAspectFill
         return imageView
@@ -150,8 +149,11 @@ class ContactProfileView: ProfileView {
     }
     
     @objc private func handleStatusChange() {
-        UserManagerService.shared().selectedContact?.statusCode? += 1
-        statusButton.setTitle(UserManagerService.shared().selectedContact?.status, for: .normal)
+        let contact = UserManagerService.shared().selectedContact
+        if (contact?.statusCode == -1) {
+            contact?.statusCode? = 0
+            statusButton.setTitle(UserManagerService.shared().selectedContact?.status, for: .normal)
+        }
     }
     private func setupStatusButton() {
         statusButton.widthAnchor.constraint(equalToConstant: 100).isActive = true

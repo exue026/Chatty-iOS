@@ -26,6 +26,12 @@ class ProfileSettingsController: UIViewController {
         return button
     }()
     
+    private let backgroundImage: UIImageView = {
+        let imageView = UIImageView(imageName: "settings_background")
+        imageView.translatesAutoresizingMaskIntoConstraints = true
+        return imageView
+    }()
+    
     private var changePicButton: UIButton?
     private var changeNameButton: UIButton?
     private var changeDescriptionButton: UIButton?
@@ -35,7 +41,8 @@ class ProfileSettingsController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.printDidLoad()
-        view.backgroundColor = UIColor(theme: .bluegrey)
+        view.addSubview(backgroundImage)
+        setupBackgroundImage()
         
         navigationItem.title = "PROFILE_SETTINGS".localized()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "LOGOUT".localized(), style: .plain, target: self, action: #selector(handleLogout))
@@ -99,6 +106,13 @@ class ProfileSettingsController: UIViewController {
     }
     
     // MARK: Setup views
+    
+    private func setupBackgroundImage() {
+        backgroundImage.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        backgroundImage.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        backgroundImage.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+    }
 
     private func setupButtons() {
         changePicButton?.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true

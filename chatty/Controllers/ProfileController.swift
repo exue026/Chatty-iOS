@@ -73,6 +73,7 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
             cell.nameLabel.text = UserManagerService.shared().selectedContact?.displayName ?? "FRIEND".localized()
             cell.descriptionLabel.text = UserManagerService.shared().selectedContact?.descript
             cell.statusButton.setTitle(UserManagerService.shared().selectedContact?.status, for: .normal)
+            cell.profilePic.image = UIImage(named: "profile_placeholder")
             return cell
         }
         else {
@@ -129,6 +130,7 @@ class MyUserProfileController: UserProfileController {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileView.cellId, for: indexPath) as! ProfileView
             cell.nameLabel.text = UserManagerService.shared().myUser?.displayName
             cell.descriptionLabel.text = UserManagerService.shared().myUser?.descript
+            cell.profilePic.image =  UIImage(named: "ethan_face")
             return cell
         }
         else {

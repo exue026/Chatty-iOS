@@ -25,7 +25,6 @@ class ContactCell: UICollectionViewCell {
         label.backgroundColor = UIColor.white
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.boldSystemFont(ofSize: 18.0)
-        label.text = "e0026"
         return label
     }()
     
@@ -34,7 +33,15 @@ class ContactCell: UICollectionViewCell {
         label.backgroundColor = UIColor.white
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: FontRes.Avenir, size: 14.0)
-        label.text = "Ethan Xue"
+        return label
+    }()
+    
+    let pendingLabel: UILabel = {
+        let label = UILabel()
+        label.backgroundColor = UIColor.white
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont(name: FontRes.Avenir, size: 18.0)
+        label.textColor = UIColor(theme: .purpleblue)
         return label
     }()
     
@@ -49,9 +56,11 @@ class ContactCell: UICollectionViewCell {
         addSubview(profilePic)
         addSubview(usernameLabel)
         addSubview(nameLabel)
+        addSubview(pendingLabel)
         setupProfilePic()
         setupUsernameLabel()
         setupNameLabel()
+        setupPendingLabel()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -83,5 +92,12 @@ class ContactCell: UICollectionViewCell {
         nameLabel.widthAnchor.constraint(equalToConstant: 150.0).isActive = true
         nameLabel.heightAnchor.constraint(equalToConstant: 22).isActive = true
         nameLabel.leftAnchor.constraint(equalTo: profilePic.rightAnchor, constant: 10).isActive = true
+    }
+    
+    private func setupPendingLabel() {
+        pendingLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        pendingLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
+        pendingLabel.heightAnchor.constraint(equalToConstant: 28).isActive = true
+        pendingLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
     }
 }
