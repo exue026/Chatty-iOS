@@ -81,6 +81,18 @@ class APIService {
         return sendRequest(endpoint: "/relations/update?userId1=\(id1)&userId2=\(id2)&rel=\(relation)", type: .PUT)
     }
     
+    func createPost(forId id: Int, messageContents: [String: Any]) -> Promise<Data?> {
+        return sendRequest(endpoint: "/posts/users/\(id)", type: .PUT, body: messageContents)
+    }
+    
+    func getPosts(forId id: Int) -> Promise<[[String: Any]]> {
+        return firstly {
+            sendRequest(endpoint: "/posts/users/\(id)", type: .GET)
+        }.then { (data: Data?) -> Promise<[[String: Any]]> in
+            return try self.convertDataToJSONArray(data: data)
+        }
+    }
+    
     private func sendRequest(endpoint: String, type: RequestType, body: [String: Any]? = nil) -> Promise<Data?> {
         return Promise { resolve, reject in
             guard let url = URL(string: baseURL + endpoint) else { return }

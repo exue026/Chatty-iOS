@@ -50,12 +50,19 @@ class MainTabBarController: UITabBarController {
             }.then { (userJSON: [String: Any]) -> Promise<[[String: Any]]> in
                 UserManagerService.shared().myUser = User(json: userJSON)
                 return APIService.shared().getContactsForUser(withId: UserManagerService.shared().myUser!.id!)
-            }.then { (contactsJSON: [[String: Any]]) -> Void in
+            }.then { (contactsJSON: [[String: Any]]) -> Promise<[[String: Any]]> in
                 UserManagerService.shared().contacts = []
                 for contactJSON in contactsJSON {
                     UserManagerService.shared().contacts?.append(User(json: contactJSON))
                 }
                 UserManagerService.shared().updatedContacts = true
+                return APIService.shared().getPosts(forId: UserManagerService.shared().myUser!.id!)
+            }.then { (postsJSON: [[String: Any]]) -> Void in
+                UserManagerService.shared().posts = []
+                for postJSON in postsJSON {
+                    UserManagerService.shared().posts?.append(Post(json: postJSON))
+                }
+                UserManagerService.shared().updatedPosts = true
             }.catch { error in
                 print(error)
             }.always {

@@ -16,7 +16,6 @@ class User {
     var username: String?
     let id: Int?
     var displayName: String?
-    var posts: [Post]?
     var descript: String?
     var pfp: UIImage?
     var coverPhoto: UIImage?
@@ -35,7 +34,6 @@ class User {
         username = json["username"] as? String ?? nil
         id = json["id"] as? Int ?? nil
         displayName = json["name"] as? String ?? nil
-        posts = json["posts"] as? [Post] ?? nil
         descript = json["description"] as? String ?? nil
         pfp = nil
         coverPhoto = nil
@@ -61,7 +59,6 @@ class User {
         self.username = username
         id = nil
         self.displayName = displayName
-        posts = nil
         self.descript = description
         pfp = nil
         coverPhoto = nil

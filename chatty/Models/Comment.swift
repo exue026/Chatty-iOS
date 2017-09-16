@@ -16,17 +16,8 @@ struct Comment {
     let parentPost: Post?
 }
 
-extension Comment: Decodable {
-    enum CommentKeys: String, CodingKey {
+extension Comment {
+    enum CommentKeys: String {
         case id, message, post_id, user_id, created_at
-    }
-    
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CommentKeys.self)
-        id = try container.decodeIfPresent(Int.self, forKey: .id)
-        text = try container.decodeIfPresent(String.self, forKey: .message)
-        postedOn = try container.decodeIfPresent(Date.self, forKey: .created_at)
-        postedByUserWithId = try container.decodeIfPresent(Int.self, forKey: .user_id)
-        parentPost = try container.decodeIfPresent(Post.self, forKey: .post_id)
     }
 }

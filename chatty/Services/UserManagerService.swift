@@ -19,8 +19,10 @@ class UserManagerService {
     
     var myUser: User?
     var contacts: [User]?
+    var posts: [Post]?
     var selectedContact: User?
     var updatedInfo: Bool = false
+    var updatedPosts: Bool = false
     var updatedContacts: Bool = false
     
     func updateUserInfo(info: [String: String]) -> Promise<Data?> {

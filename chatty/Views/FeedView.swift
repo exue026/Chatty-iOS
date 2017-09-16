@@ -15,7 +15,7 @@ class FeedView: UICollectionViewCell, UICollectionViewDataSource, UICollectionVi
     lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = UIColor.white
+        collectionView.backgroundColor = UIColor(white: 0.95, alpha: 1)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(PostCell.self, forCellWithReuseIdentifier: PostCell.cellId)
@@ -42,16 +42,22 @@ class FeedView: UICollectionViewCell, UICollectionViewDataSource, UICollectionVi
     fileprivate func additionalSetup() { }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 15
+        return UserManagerService.shared().posts?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PostCell.cellId, for: indexPath) as! PostCell
+        cell.headLabel.text = UserManagerService.shared().posts?[indexPath.row].title
+        cell.bodyLabel.text = UserManagerService.shared().posts?[indexPath.row].text
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: self.frame.width, height: 75.0)
+        if let body = UserManagerService.shared().posts?[indexPath.row].text {
+            let rect = NSString(string: body).boundingRect(with: CGSize(width: self.frame.width, height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14.0)], context: nil)
+            return CGSize(width: self.frame.width, height: rect.height + 16 + 6 + 40 + 30 + 6 + 12)
+        }
+        return CGSize(width: self.frame.width, height: 150)
     }
     
     private func setupCollectionView() {

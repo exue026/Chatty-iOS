@@ -20,11 +20,19 @@ class FeedController: UICollectionViewController {
         super.viewDidLoad()
         self.printDidLoad()
         navigationItem.title = "NEWSFEED".localized()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "POST".localized(), style: .plain, target: self, action: #selector(handlePost))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.compose, target: self, action: #selector(handlePost))
         navigationController?.navigationBar.isTranslucent = false
         feedView = FeedView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height - 65))
         view.addSubview(feedView!)
         setupFeedView()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        if UserManagerService.shared().updatedPosts {
+            UserManagerService.shared().updatedPosts = false
+            feedView?.collectionView.reloadData()
+        }
     }
     
     deinit {
@@ -34,7 +42,8 @@ class FeedController: UICollectionViewController {
     // MARK: Post button target
     
     @objc private func handlePost() {
-        
+        let viewController = UINavigationController(rootViewController: PostController())
+        present(viewController, animated: true, completion: nil)
     }
     
     // MARK: Properties

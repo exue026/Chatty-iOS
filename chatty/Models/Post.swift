@@ -18,21 +18,29 @@ struct Post {
     let text: String?
     let createdOn: Date?
     let postedByUserWithId: Int?
-}
-
-extension Post: Decodable {
-    enum PostKeys: String, CodingKey {
-        case id, title, body, user_id, created_at, comments
+    
+    init(title: String, text: String) {
+        self.title = title
+        self.text = text
+        id = nil
+        comments = nil
+        createdOn = nil
+        postedByUserWithId = nil
     }
     
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: PostKeys.self)
-        id = try container.decodeIfPresent(Int.self, forKey: .id)
-        title = try container.decodeIfPresent(String.self, forKey: .title)
-        text = try container.decodeIfPresent(String.self, forKey: .body)
-        createdOn = try container.decodeIfPresent(Date.self, forKey: .created_at)
-        postedByUserWithId = try container.decodeIfPresent(Int.self, forKey: .user_id)
-        comments = try container.decodeIfPresent([Comment].self, forKey: .comments)
+    init(json: [String: Any]) {
+        id = json[PostKeys.id.rawValue] as? Int ?? nil
+        title = json[PostKeys.head.rawValue] as? String ?? nil
+        text = json[PostKeys.body.rawValue] as? String ?? nil
+        comments = nil
+        createdOn = nil
+        postedByUserWithId = json["user_id"] as? Int ?? nil
+    }
+}
+
+extension Post {
+    enum PostKeys: String {
+        case id, head, body, user_id, created_at, comments
     }
 }
 

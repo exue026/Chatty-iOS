@@ -49,3 +49,9 @@
 "ADD_CONTACT" = "Add Contact";
 "CONTACT" = "CONTACT";
 "REQUEST_PENDING" = "Pending";
+"CREATE_POST" = "Create a Post";
+"CANCEL" = "Cancel";
+"POST_BODY" = "Write a message";
+"POST_HEAD" = "Write a title for your message";
+"CONFIRM_POST" = "Are you sure?";
+"CONFIRM_POST_MSG" = "If you post this message, it will be visible to all of your contacts";
