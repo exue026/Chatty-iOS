@@ -55,3 +55,8 @@
 "POST_HEAD" = "Write a title for your message";
 "CONFIRM_POST" = "Are you sure?";
 "CONFIRM_POST_MSG" = "If you post this message, it will be visible to all of your contacts";
+"WEEKS_AGO" = "weeks ago";
+"DAYS_AGO" = "days ago";
+"HOURS_AGO" = "hours ago";
+"MINUTES_AGO" = "minutes ago";
+"NOW" = "now";

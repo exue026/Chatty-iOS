@@ -15,5 +15,12 @@ extension String {
     
     func trim() -> String {
         return self.trimmingCharacters(in: .whitespacesAndNewlines)
-    }    
+    }
+    
+    func toDate() -> Date {
+        let formatter = DateFormatter()
+        formatter.locale = Locale.current
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        return formatter.date(from: self) ?? Date()
+    }
 }

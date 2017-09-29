@@ -12,7 +12,7 @@
 		A12AF1F21F16EA8D00ECD541 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12AF1F11F16EA8D00ECD541 /* APIService.swift */; };
 		A14344A91F36599B00ECC15C /* ProfilePager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14344A81F36599B00ECC15C /* ProfilePager.swift */; };
 		A15E794F1F38E15600CAEED1 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15E794E1F38E15600CAEED1 /* ProfileController.swift */; };
-		A15E79511F39248400CAEED1 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15E79501F39248400CAEED1 /* UIViewController.swift */; };
+		A15E79511F39248400CAEED1 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15E79501F39248400CAEED1 /* Date.swift */; };
 		A15E79531F394E3600CAEED1 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15E79521F394E3600CAEED1 /* ProfileView.swift */; };
 		A15E79551F3959DD00CAEED1 /* ContactsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15E79541F3959DD00CAEED1 /* ContactsController.swift */; };
 		A1652AE41F1AFF3E00140549 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1652AE31F1AFF3E00140549 /* Error.swift */; };
@@ -64,7 +64,7 @@
 		A12AF1F11F16EA8D00ECD541 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		A14344A81F36599B00ECC15C /* ProfilePager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePager.swift; sourceTree = "<group>"; };
 		A15E794E1F38E15600CAEED1 /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
-		A15E79501F39248400CAEED1 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
+		A15E79501F39248400CAEED1 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		A15E79521F394E3600CAEED1 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		A15E79541F3959DD00CAEED1 /* ContactsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsController.swift; sourceTree = "<group>"; };
 		A1652AE31F1AFF3E00140549 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
@@ -165,7 +165,7 @@
 				A166DF471F11E9440014C0A5 /* UIColor.swift */,
 				A1652AE31F1AFF3E00140549 /* Error.swift */,
 				A18F4F801F315F4C009534D0 /* UIImageView.swift */,
-				A15E79501F39248400CAEED1 /* UIViewController.swift */,
+				A15E79501F39248400CAEED1 /* Date.swift */,
 				A1C7279E1F3A9E2000AABFC9 /* NSObject.swift */,
 			);
 			path = Extensions;
@@ -478,7 +478,7 @@
 				A18F4F831F318436009534D0 /* ProfileEditController.swift in Sources */,
 				A12AF1F21F16EA8D00ECD541 /* APIService.swift in Sources */,
 				A1B374661F186474009866D8 /* FirebaseService.swift in Sources */,
-				A15E79511F39248400CAEED1 /* UIViewController.swift in Sources */,
+				A15E79511F39248400CAEED1 /* Date.swift in Sources */,
 				A1C7279F1F3A9E2000AABFC9 /* NSObject.swift in Sources */,
 				A1BD7B221F117A5600E217FC /* AppDelegate.swift in Sources */,
 				A1652AE61F1B19AF00140549 /* MainTabBarController.swift in Sources */,

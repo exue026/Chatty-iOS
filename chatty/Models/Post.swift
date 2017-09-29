@@ -17,6 +17,7 @@ struct Post {
     let comments: [Comment]?
     let text: String?
     let createdOn: Date?
+    let timeSinceNow: String?
     let postedByUserWithId: Int?
     
     init(title: String, text: String) {
@@ -24,8 +25,9 @@ struct Post {
         self.text = text
         id = nil
         comments = nil
-        createdOn = nil
+        createdOn = Date()
         postedByUserWithId = nil
+        timeSinceNow = createdOn?.getTimeSinceNow()
     }
     
     init(json: [String: Any]) {
@@ -33,7 +35,8 @@ struct Post {
         title = json[PostKeys.head.rawValue] as? String ?? nil
         text = json[PostKeys.body.rawValue] as? String ?? nil
         comments = nil
-        createdOn = nil
+        createdOn = (json[PostKeys.created_at.rawValue] as? String)?.toDate()
+        timeSinceNow = createdOn?.getTimeSinceNow()
         postedByUserWithId = json["user_id"] as? Int ?? nil
     }
 }

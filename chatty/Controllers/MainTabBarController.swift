@@ -62,7 +62,6 @@ class MainTabBarController: UITabBarController {
                 for postJSON in postsJSON {
                     UserManagerService.shared().posts?.append(Post(json: postJSON))
                 }
-                UserManagerService.shared().updatedPosts = true
             }.catch { error in
                 print(error)
             }.always {

@@ -35,13 +35,7 @@ class UserManagerService {
     // MARK: Initializers
     
     private init() {
-        /*
-        let contact1 = User(username: "chenboi", displayName: "George Chen", description: "Treasurer at Orchard Commons Residence Association. Student at University of British Columbia. Went to Burnaby North Secondary.", statusCode: 0)
-        let contact2 = User(username: "jamal", displayName: "Thomson Mai", description: "UBC Civil", statusCode: 0)
-        let contact3 = User(username: "brady_liu", displayName: "Brady Liu", description: "BNSS'16 | CUDAS | When life gets hard, just keep swimming :)", statusCode: 0)
- 
-        contacts = [contact1, contact2, contact3]
-         */
+        //used for testing
     }
     
     static func shared() -> UserManagerService {

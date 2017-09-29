@@ -10,8 +10,6 @@ import UIKit
 
 class FeedView: UICollectionViewCell, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
     
-    static let cellId = "FeedView"
-    
     lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -47,15 +45,18 @@ class FeedView: UICollectionViewCell, UICollectionViewDataSource, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PostCell.cellId, for: indexPath) as! PostCell
-        cell.headLabel.text = UserManagerService.shared().posts?[indexPath.row].title
-        cell.bodyLabel.text = UserManagerService.shared().posts?[indexPath.row].text
+        if let post = UserManagerService.shared().posts?[indexPath.row] {
+            cell.dateLabel.text = post.timeSinceNow
+            cell.headLabel.text = post.title
+            cell.bodyLabel.text = post.text
+        }
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if let body = UserManagerService.shared().posts?[indexPath.row].text {
             let rect = NSString(string: body).boundingRect(with: CGSize(width: self.frame.width, height: 1000), options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin), attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14.0)], context: nil)
-            return CGSize(width: self.frame.width, height: rect.height + 16 + 6 + 40 + 30 + 6 + 12)
+            return CGSize(width: self.frame.width, height: rect.height + 30 + 6 + 40 + 30 + 6 + 12)
         }
         return CGSize(width: self.frame.width, height: 150)
     }

@@ -16,7 +16,7 @@ class PostController: UIViewController, UITextViewDelegate {
     private lazy var postHead: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.backgroundColor = UIColor(theme: .purpleblue)
+        textView.backgroundColor = UIColor(theme: .purpleblue, opacity: 0.7)
         
         textView.textColor = UIColor.white
         textView.font = UIFont(name: FontRes.Avenir, size: 20)
@@ -31,7 +31,7 @@ class PostController: UIViewController, UITextViewDelegate {
     private lazy var postBody: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.backgroundColor = UIColor(theme: .purpleblue)
+        textView.backgroundColor = UIColor(theme: .purpleblue, opacity: 0.7)
         textView.textColor = UIColor.white
         textView.font = UIFont(name: FontRes.Avenir, size: 18)
         textView.font = textView.font?.withSize(18)
@@ -43,7 +43,7 @@ class PostController: UIViewController, UITextViewDelegate {
     }()
     
     private let backgroundImage: UIImageView = {
-        let imageView = UIImageView(imageName: "settings_background")
+        let imageView = UIImageView(imageName: "create_post_background")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -89,7 +89,7 @@ class PostController: UIViewController, UITextViewDelegate {
                 alert.addAction(UIAlertAction(title: "OK".localized(), style: .default) {_ in
                     UserManagerService.shared().posts?.insert(Post(title: self.postHead.text.trim(), text: self.postBody.text.trim()), at: 0)
                     UserManagerService.shared().updatedPosts = true
-                    self.handleCancel()
+                    self.dismiss(animated: true, completion: nil)
                 })
                 self.present(alert, animated: true) {
                     self.spinner.stop()
@@ -152,7 +152,7 @@ class PostController: UIViewController, UITextViewDelegate {
         postHead.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         postHead.heightAnchor.constraint(equalToConstant: 50).isActive = true
         postHead.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        postHead.bottomAnchor.constraint(equalTo: postBody.topAnchor, constant: -16).isActive = true
+        postHead.bottomAnchor.constraint(equalTo: postBody.topAnchor, constant: -20).isActive = true
     }
     
     private func setupSpinner() {

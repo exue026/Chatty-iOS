@@ -14,7 +14,7 @@ class ContactCell: UICollectionViewCell {
     
     static let cellId = "ContactCell"
     
-    private let profilePic: UIImageView = {
+    let profilePic: UIImageView = {
         let imageView = UIImageView(imageName: "profile_placeholder")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
