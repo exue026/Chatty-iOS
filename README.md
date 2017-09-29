@@ -5,7 +5,12 @@ The latest version of the application has not been released on the Apple App Sto
 ## Stack
 This app was written using Swift 4 in Xcode 9 *without* using the storyboard for laying out views. It utilizes the PromiseKit and Firebase pods. See the Chatty-Server repository [here](https://www.google.com) for backend technologies.
 ## Features
-| Newsfeed | Profile | Contacts
+| Newsfeed | Profile | Contacts |
 | --- | --- | --- |
 | <img src="https://github.com/exue026/Chatty-iOS/blob/master/images/newsfeed.png" width=174 height=309> | <img src="https://github.com/exue026/Chatty-iOS/blob/master/images/profile.png" width=174 height=309> | <img src="https://github.com/exue026/Chatty-iOS/blob/master/images/contacts.png" width=174 height=309> |
+
+| Post | Create | Customize |
+| --- | --- | --- |
+| <img src="https://github.com/exue026/Chatty-iOS/blob/master/images/create_post.png" width=174 height=309> | <img src="https://github.com/exue026/Chatty-iOS/blob/master/images/login.png" width=174 height=309> | <img src="https://github.com/exue026/Chatty-iOS/blob/master/images/profile_settings.png" width=174 height=309> |
+
 
