@@ -10,10 +10,14 @@ import Foundation
 
 enum BaseError: LocalizedError {
     case unknownError
+    case optionalUnwrapError
     var errorDescription: String? {
         switch self {
         case .unknownError:
             return "UNKNOWN_ERROR".localized()
+            
+        case .optionalUnwrapError:
+            return "OPTIONAL_UNWRAP_ERROR".localized()
         }
     }
 }

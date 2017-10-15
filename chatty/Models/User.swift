@@ -19,7 +19,7 @@ class User {
     var descript: String?
     var pfp: UIImage?
     var coverPhoto: UIImage?
-    var statusCode: Int? { // 0 = pending, 1 = friends, else not friends
+    var statusCode: Int? { // -1 = not friends, 0 = pending, 1 = friends
         didSet {
             if (statusCode! > 1) { statusCode = 1 }
             else {

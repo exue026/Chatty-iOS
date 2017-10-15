@@ -71,7 +71,7 @@ class APIService {
     
     func getMatchingUsers(forUsername username: String) -> Promise<[[String: Any]]> {
         return firstly {
-            sendRequest(endpoint: "/users/usernames/\(username)", type: .GET)
+            sendRequest(endpoint: "/users/\(UserManagerService.shared().myUser!.id!)/usernames/\(username)", type: .GET)
         }.then { (data: Data?) -> Promise<[[String: Any]]> in
             return try self.convertDataToJSONArray(data: data)
         }

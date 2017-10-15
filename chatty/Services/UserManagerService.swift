@@ -21,6 +21,7 @@ class UserManagerService {
     var contacts: [User]?
     var posts: [Post]?
     var selectedContact: User?
+    var selectedContactDidUpdate: Bool = false
     var updatedInfo: Bool = false
     var updatedPosts: Bool = false
     var updatedContacts: Bool = false

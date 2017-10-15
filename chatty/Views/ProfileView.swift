@@ -150,9 +150,15 @@ class ContactProfileView: ProfileView {
     
     @objc private func handleStatusChange() {
         let contact = UserManagerService.shared().selectedContact
-        if (contact?.statusCode == -1) {
+        if (contact?.statusCode == -1) { // send a friend request to a stranger
             contact?.statusCode? = 0
             statusButton.setTitle(UserManagerService.shared().selectedContact?.status, for: .normal)
+            UserManagerService.shared().selectedContactDidUpdate = true
+            guard let myId = UserManagerService.shared().myUser?.id, let otherId = contact?.id else {
+                print(BaseError.optionalUnwrapError)
+                return
+            }
+            _ = APIService.shared().updateRelation(forMyId: myId, otherId: otherId, relation: 0)
         }
     }
     private func setupStatusButton() {

@@ -38,8 +38,11 @@ class ContactsController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        if contacts == nil && UserManagerService.shared().contacts != nil {
+        if (contacts == nil && UserManagerService.shared().contacts != nil) || UserManagerService.shared().updatedContacts {
             contacts = UserManagerService.shared().contacts
+            collectionView!.reloadData()
+        } else if UserManagerService.shared().selectedContactDidUpdate {
+            UserManagerService.shared().selectedContactDidUpdate = false
             collectionView!.reloadData()
         }
     }
@@ -58,7 +61,7 @@ class ContactsController: UICollectionViewController, UICollectionViewDelegateFl
         if let contact = contacts?[indexPath.row] {
             cell.usernameLabel.text = contact.username
             cell.nameLabel.text = contact.displayName
-            if (contact.statusCode == 0) {
+            if contact.statusCode == 0 {
                 cell.pendingLabel.text = "REQUEST_PENDING".localized()
             }
         }
