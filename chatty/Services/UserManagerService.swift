@@ -25,6 +25,7 @@ class UserManagerService {
     var updatedInfo: Bool = false
     var updatedPosts: Bool = false
     var updatedContacts: Bool = false
+    var loggedIn: Bool = false
     
     func updateUserInfo(info: [String: String]) -> Promise<Data?> {
         guard let id = myUser?.id else {

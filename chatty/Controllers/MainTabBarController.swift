@@ -32,6 +32,10 @@ class MainTabBarController: UITabBarController {
         super.viewDidAppear(animated)
         if !FirebaseService.shared().currentUserExists() {
             self.segueToLoginController()
+        } else if  UserManagerService.shared().loggedIn {
+            print("setting up!")
+            UserManagerService.shared().loggedIn = false
+            self.setupManagedVCs()
         }
     }
     
@@ -67,10 +71,15 @@ class MainTabBarController: UITabBarController {
             }.always {
                 self.setupManagedVCs()
             }
+        } else {
+            self.setupManagedVCs()
         }
     }
     
     private func setupManagedVCs() {
+        
+        viewControllers?.removeAll()
+        
         let newsFeedVC = FeedController(collectionViewLayout: UICollectionViewFlowLayout())
         newsFeedVC.tabBarItem = UITabBarItem(title: "FEED".localized(), image: UIImage(named: "tab_bar_feed"), tag: MainTabBarManagedControllers.newsFeedVC.rawValue)
         

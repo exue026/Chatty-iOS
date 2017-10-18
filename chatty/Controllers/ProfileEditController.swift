@@ -185,8 +185,6 @@ class ProfileEditController: UIViewController, DataReceiver, UITextFieldDelegate
     private func setupMainView() {
         guard let data = data else { return }
         switch(data) {
-        case "CHANGE_PFP".localized():
-            view.addSubview(nameText)
         case "EDIT_NAME".localized():
             view.addSubview(nameText)
             setupNameText()

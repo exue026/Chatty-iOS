@@ -38,13 +38,14 @@ class ContactsController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        if (contacts == nil && UserManagerService.shared().contacts != nil) || UserManagerService.shared().updatedContacts {
+        if (contacts == nil && UserManagerService.shared().contacts != nil) || UserManagerService.shared().selectedContactDidUpdate {
             contacts = UserManagerService.shared().contacts
             collectionView!.reloadData()
         } else if UserManagerService.shared().selectedContactDidUpdate {
             UserManagerService.shared().selectedContactDidUpdate = false
             collectionView!.reloadData()
         }
+        UserManagerService.shared().selectedContact = nil
     }
     
     // MARK: UICollectionView
@@ -62,7 +63,10 @@ class ContactsController: UICollectionViewController, UICollectionViewDelegateFl
             cell.usernameLabel.text = contact.username
             cell.nameLabel.text = contact.displayName
             if contact.statusCode == 0 {
-                cell.pendingLabel.text = "REQUEST_PENDING".localized()
+                cell.pendingLabel.text = contact.status
+            }
+            if contact.statusCode != 0 {
+                cell.pendingLabel.text = ""
             }
         }
         else {

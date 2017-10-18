@@ -83,6 +83,19 @@ class LoginController: UIViewController, UITextFieldDelegate {
         return textField
     }()
     
+    private var languageTFHeightAnchor: NSLayoutConstraint?
+    
+    private lazy var languageTF: UITextField = {
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.delegate = self
+        textField.backgroundColor = UIColor.white
+        textField.attributedPlaceholder = NSAttributedString(string: "LANGUAGE".localized(), attributes: [NSAttributedStringKey.foregroundColor: UIColor(theme: .grey)])
+        textField.autocapitalizationType = .none
+        textField.autocorrectionType = .no
+        return textField
+    }()
+    
     private let loginRegisterButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -107,6 +120,15 @@ class LoginController: UIViewController, UITextFieldDelegate {
     
     private let separatorView2: UIView = {
         let view = UIView()
+        view.backgroundColor = UIColor(theme: .thistle)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private var separatorView3HeightAnchor: NSLayoutConstraint?
+    
+    private let separatorView3: UIView = {
+        let view =  UIView()
         view.backgroundColor = UIColor(theme: .thistle)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -154,27 +176,35 @@ class LoginController: UIViewController, UITextFieldDelegate {
         let title = loginRegisterSegmentedControl.titleForSegment(at: loginRegisterSegmentedControl.selectedSegmentIndex)
         loginRegisterButton.setTitle(title, for: .normal)
         
-        inputsViewHeightAnchor?.constant = loginRegisterSegmentedControl.selectedSegmentIndex == 0 ? 100 : 150
+        inputsViewHeightAnchor?.constant = loginRegisterSegmentedControl.selectedSegmentIndex == 0 ? 100 : 200
         
-        let usernameTFMultiplier: CGFloat = loginRegisterSegmentedControl.selectedSegmentIndex == 0 ? 0 : 1/3
-        let emailTFMultiplier: CGFloat = loginRegisterSegmentedControl.selectedSegmentIndex == 0 ? 1/2 : 1/3
-        let passwordTFMultiplier: CGFloat = loginRegisterSegmentedControl.selectedSegmentIndex == 0 ? 1/2 : 1/3
+        let usernameTFMultiplier: CGFloat = loginRegisterSegmentedControl.selectedSegmentIndex == 0 ? 0 : 1/4
+        let emailTFMultiplier: CGFloat = loginRegisterSegmentedControl.selectedSegmentIndex == 0 ? 1/2 : 1/4
+        let passwordTFMultiplier: CGFloat = loginRegisterSegmentedControl.selectedSegmentIndex == 0 ? 1/2 : 1/4
         let separatorView1Constant: CGFloat = loginRegisterSegmentedControl.selectedSegmentIndex == 0 ? 0 : 2
+        let separatorView3Constant: CGFloat = loginRegisterSegmentedControl.selectedSegmentIndex == 0 ? 0 : 2
+        let languageTFMultiplier: CGFloat = loginRegisterSegmentedControl.selectedSegmentIndex == 0 ? 1/2 : 1/4
         
         usernameTFHeightAnchor?.isActive = false
         emailTFHeightAnchor?.isActive = false
         passwordTFHeightAnchor?.isActive = false
         separatorView1HeightAnchor?.isActive = false
+        separatorView3HeightAnchor?.isActive = false
+        languageTFHeightAnchor?.isActive = false
         
         usernameTFHeightAnchor = usernameTF.heightAnchor.constraint(equalTo: inputsView.heightAnchor, multiplier: usernameTFMultiplier)
         emailTFHeightAnchor = emailTF.heightAnchor.constraint(equalTo: inputsView.heightAnchor, multiplier: emailTFMultiplier)
         passwordTFHeightAnchor = passwordTF.heightAnchor.constraint(equalTo: inputsView.heightAnchor, multiplier: passwordTFMultiplier)
         separatorView1HeightAnchor = separatorView1.heightAnchor.constraint(equalToConstant: separatorView1Constant)
+        separatorView3HeightAnchor = separatorView3.heightAnchor.constraint(equalToConstant: separatorView3Constant)
+        languageTFHeightAnchor = languageTF.heightAnchor.constraint(equalTo: inputsView.heightAnchor, multiplier: languageTFMultiplier)
         
         usernameTFHeightAnchor?.isActive = true
         emailTFHeightAnchor?.isActive = true
         passwordTFHeightAnchor?.isActive = true
         separatorView1HeightAnchor?.isActive = true
+        separatorView3HeightAnchor?.isActive = true
+        languageTFHeightAnchor?.isActive = true
     }
     
     // MARK: loginRegisterButton target
@@ -200,12 +230,18 @@ class LoginController: UIViewController, UITextFieldDelegate {
             UserManagerService.shared().myUser = User(json: userJSON)
             UserManagerService.shared().updatedInfo = true
             return APIService.shared().getContactsForUser(withId: UserManagerService.shared().myUser!.id!)
-        }.then { (contactsJSON: [[String: Any]]) -> Void in
+        }.then { (contactsJSON: [[String: Any]]) ->  Promise<[[String: Any]]> in
             UserManagerService.shared().contacts = []
             for contactJSON in contactsJSON {
                 UserManagerService.shared().contacts?.append(User(json: contactJSON))
             }
             UserManagerService.shared().updatedContacts = true
+         return APIService.shared().getPosts(forId: UserManagerService.shared().myUser!.id!)
+        }.then { (postsJSON: [[String: Any]]) -> Void in
+            UserManagerService.shared().posts = []
+            for postJSON in postsJSON {
+                UserManagerService.shared().posts?.append(Post(json: postJSON))
+            }
             self.segueToMainTabBarController()
         }.catch { error in
             let alert = UIAlertController(title: "ERROR".localized(), message: error.localizedDescription, preferredStyle: .alert)
@@ -254,7 +290,8 @@ class LoginController: UIViewController, UITextFieldDelegate {
     // MARK: Navigation
     
     private func segueToMainTabBarController() {
-         dismiss(animated: true, completion: nil)
+        UserManagerService.shared().loggedIn = true
+        dismiss(animated: true, completion: nil)
     }
     
     // MARK: Setup Views
@@ -285,12 +322,16 @@ class LoginController: UIViewController, UITextFieldDelegate {
         inputsView.addSubview(emailTF)
         inputsView.addSubview(separatorView2)
         inputsView.addSubview(passwordTF)
+        inputsView.addSubview(separatorView3)
+        inputsView.addSubview(languageTF)
         
         setupUsernameTF()
         setupSeparatorView1()
         setupEmailTF()
         setupSeparatorView2()
         setupPasswordTF()
+        setupSeparatorView3()
+        setupLanguageTF()
     }
     
     private func setupRegisterButton() {
@@ -337,6 +378,22 @@ class LoginController: UIViewController, UITextFieldDelegate {
         passwordTF.widthAnchor.constraint(equalTo: inputsView.widthAnchor, constant: -12).isActive = true
         passwordTFHeightAnchor =  passwordTF.heightAnchor.constraint(equalTo: inputsView.heightAnchor, multiplier: 1/2)
         passwordTFHeightAnchor?.isActive = true
+    }
+    
+    private func setupSeparatorView3() {
+        separatorView3.topAnchor.constraint(equalTo: passwordTF.bottomAnchor).isActive = true
+        separatorView3.leftAnchor.constraint(equalTo: inputsView.leftAnchor).isActive = true
+        separatorView3.widthAnchor.constraint(equalTo: inputsView.widthAnchor).isActive = true
+        separatorView3HeightAnchor = separatorView3.heightAnchor.constraint(equalToConstant: 0)
+        separatorView3HeightAnchor?.isActive = true
+    }
+    
+    private func setupLanguageTF() {
+        languageTF.leftAnchor.constraint(equalTo: inputsView.leftAnchor, constant: 12).isActive = true
+        languageTF.topAnchor.constraint(equalTo: separatorView3.bottomAnchor).isActive = true
+        languageTF.widthAnchor.constraint(equalTo: inputsView.widthAnchor, constant: -12).isActive = true
+        languageTFHeightAnchor = languageTF.heightAnchor.constraint(equalTo: inputsView.heightAnchor, multiplier: 0)
+        languageTFHeightAnchor?.isActive = true
     }
     
     private func setupSpinner() {

@@ -78,6 +78,7 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
         }
         else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedView.cellId, for: indexPath) as! FeedView
+            cell.userId = UserManagerService.shared().selectedContact?.id
             return cell
         }
     }
@@ -135,6 +136,7 @@ class MyUserProfileController: UserProfileController {
         }
         else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedView.cellId, for: indexPath) as! FeedView
+            cell.userId = UserManagerService.shared().myUser?.id
             return cell
         }
     }

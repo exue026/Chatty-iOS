@@ -61,3 +61,4 @@
 "MINUTES_AGO" = "minutes ago";
 "NOW" = "now";
 "OPTIONAL_UNWRAP_ERROR" = "Error when unwrapping optional that should not be nil";
+"LANGUAGE" = "Language";
