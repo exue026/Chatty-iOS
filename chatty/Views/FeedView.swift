@@ -78,10 +78,6 @@ class FeedView: UICollectionViewCell, UICollectionViewDataSource, UICollectionVi
         return CGSize(width: self.frame.width, height: 150)
     }
     
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        print("scrolling!!")
-    }
-    
     private func setupCollectionView() {
         collectionView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         collectionView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true

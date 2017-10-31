@@ -33,7 +33,6 @@ class MainTabBarController: UITabBarController {
         if !FirebaseService.shared().currentUserExists() {
             self.segueToLoginController()
         } else if  UserManagerService.shared().loggedIn {
-            print("setting up!")
             UserManagerService.shared().loggedIn = false
             self.setupManagedVCs()
         }

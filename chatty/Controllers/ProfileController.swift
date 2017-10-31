@@ -131,7 +131,7 @@ class MyUserProfileController: UserProfileController {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileView.cellId, for: indexPath) as! ProfileView
             cell.nameLabel.text = UserManagerService.shared().myUser?.displayName
             cell.descriptionLabel.text = UserManagerService.shared().myUser?.descript
-            cell.profilePic.image =  UIImage(named: "ethan_face")
+            cell.profilePic.image =  UIImage(named: "profile_placeholder")
             return cell
         }
         else {

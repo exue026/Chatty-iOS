@@ -242,6 +242,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
             for postJSON in postsJSON {
                 UserManagerService.shared().posts?.append(Post(json: postJSON))
             }
+            UserManagerService.shared().loggedIn = true
             self.segueToMainTabBarController()
         }.catch { error in
             let alert = UIAlertController(title: "ERROR".localized(), message: error.localizedDescription, preferredStyle: .alert)
